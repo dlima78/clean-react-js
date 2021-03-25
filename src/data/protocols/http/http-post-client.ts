@@ -7,5 +7,5 @@ export interface HttpPostClient<T, R> {
 
 export type HttpPostParams<T> = {
   url: string
-  body: T
+  body?: T
 }
