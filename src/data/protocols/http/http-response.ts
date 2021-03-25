@@ -1,7 +1,7 @@
 export enum HttpStatusCode {
   noContent = 204,
-  unauthorized = 401,
-  unexpected = 400
+  badRequest = 400,
+  unauthorized = 401
 }
 
 export type HttpResponse = {

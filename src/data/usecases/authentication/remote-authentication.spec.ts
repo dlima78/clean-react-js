@@ -47,7 +47,7 @@ describe('RemoteAuthentication', () => {
   test('Should throw UnexpectedError if HttpPostClient returs 400', async () => {
     const { sut, httpPostClientSpy } = makeSut()
     httpPostClientSpy.response = {
-      statusCode: HttpStatusCode.unexpected
+      statusCode: HttpStatusCode.badRequest
     }
     const promise = sut.auth(mockAuthenticationParams())
     await expect(promise).rejects.toThrow(new UnexpectedError())
