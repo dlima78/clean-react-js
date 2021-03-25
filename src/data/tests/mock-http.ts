@@ -1,12 +1,20 @@
-import { HttpPostClient, HttpPostParams } from '@/data/protocols/http'
-import faker from 'faker'
+import {
+  HttpPostClient,
+  HttpStatusCode,
+  HttpPostParams,
+  HttpResponse
+} from '@/data/protocols/http'
 
 export class HttpPostClientSpy implements HttpPostClient {
   url?: string
   body?: any
-  async post (params: HttpPostParams): Promise<void> {
+  response: HttpResponse = {
+    statusCode: HttpStatusCode.noContent
+  }
+
+  async post (params: HttpPostParams): Promise<HttpResponse> {
     this.body = params.body
     this.url = params.url
-    return Promise.resolve()
+    return Promise.resolve(this.response)
   }
 }
