@@ -5,14 +5,15 @@ import { HttpPostClientSpy } from '@/data/tests'
 import { HttpStatusCode } from '@/data/protocols/http'
 
 import faker from 'faker'
+import { Authentication } from '@/domain/usecases'
 
 type SutTypes = {
   sut: RemoteAuthentication
-  httpPostClientSpy: HttpPostClientSpy
+  httpPostClientSpy: HttpPostClientSpy<Authentication.Params, Authentication.Model>
 }
 
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
-  const httpPostClientSpy = new HttpPostClientSpy()
+  const httpPostClientSpy = new HttpPostClientSpy<Authentication.Params, Authentication.Model>()
   const sut = new RemoteAuthentication(url, httpPostClientSpy)
   return {
     sut,
