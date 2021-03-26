@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/main/index.tsx',
   output: {
     path: path.join(__dirname, 'public/js'),
-    publiPath: '/public/js',
+    publicPath: '/public/js',
     filename: 'bundle.js'
   },
   resolve: {
@@ -14,6 +14,15 @@ module.exports = {
     alias: {
       '@': path.join(__dirname, 'src')
     }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts(x?)$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
   },
   devServer: {
     contentBase: './public',
