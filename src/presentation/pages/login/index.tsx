@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import {
   Spinner,
   Header,
-  Footer
+  Footer,
+  Input
 } from '@/presentation/components'
 
 const Login: React.FC = () => {
@@ -12,14 +13,8 @@ const Login: React.FC = () => {
       <Header />
       <Form>
         <TitleLogin>Login</TitleLogin>
-        <InputWrap>
-          <Input type="text" placeholder="Digite seu email" />
-          <Status>🔴</Status>
-        </InputWrap>
-        <InputWrap>
-          <Input type="password" placeholder="Digite sua senha" />
-          <Status>🟢</Status>
-        </InputWrap>
+        <Input type="text" placeholder="Digite seu email" />
+        <Input type="password" placeholder="Digite sua senha" />
         <Button>Entrar</Button>
         <Link>Criar Conta</Link>
         <ErrorWrap>
@@ -63,31 +58,6 @@ const Form = styled.form`
   flex-direction: column;
   width: 400px;
   padding: 40px;
-`
-
-const InputWrap = styled.div`
-  align-items: center;
-  display: flex;
-  margin-top: 16px;
-  position: relative;
-`
-const Input = styled.input`
-  border: 1px solid var(--grey);
-  border-radius: 2px;
-  flex-grow: 1;
-  line-height: 40px;
-  outline: none;
-  padding: 0px 40px 0px 8px;
-  
-  &:focus {
-    border: 1px solid var(--primaryDark);
-  }
-`
-const Status = styled.span`
-  cursor: help;
-  position: absolute;
-  font-size: 12px;
-  right: 8px;
 `
 const Button = styled.button`
   border: none;
