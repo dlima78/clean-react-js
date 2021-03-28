@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
-  Spinner,
+  FormStatus,
   Header,
   Footer,
   Input
@@ -17,10 +17,7 @@ const Login: React.FC = () => {
         <Input type="password" placeholder="Digite sua senha" />
         <Button>Entrar</Button>
         <Link>Criar Conta</Link>
-        <ErrorWrap>
-          <LoadingSpinner />
-          <Error>Error</Error>
-        </ErrorWrap>
+        <FormStatus />
       </Form>
       <Footer />
     </LoginWrapper>
@@ -28,20 +25,6 @@ const Login: React.FC = () => {
 }
 
 export default Login
-
-const ErrorWrap = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-`
-const LoadingSpinner = styled(Spinner)`
-  margin-top: 30px;
-`
-const Error = styled.span`
-  margin-top: 30px;
-  color: var(--invalid);
-  font-size: 14px;
-`
 
 const LoginWrapper = styled.div`
   display: flex;
