@@ -1,17 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import {
-  Logo,
-  Spinner
+  Spinner,
+  Header
 } from '@/presentation/components'
 
 const Login: React.FC = () => {
   return (
     <LoginWrapper>
-      <Header>
-        <Logo />
-        <LogoDescription>4Dev - Enquetes para Programadores</LogoDescription>
-      </Header>
+      <Header />
       <Form>
         <TitleLogin>Login</TitleLogin>
         <InputWrap>
@@ -56,14 +53,6 @@ const LoginWrapper = styled.div`
   min-height: 100vh;
   justify-content: space-between;
 `
-const Header = styled.header`
-  align-items: center;
-  border-top: 40px solid var(--black);
-  display: flex;
-  flex-direction: column;
-  background: var(--greyDark);
-`
-
 const Form = styled.form`
   align-self: center;
   background: var(--white);
@@ -135,8 +124,4 @@ const TitleLogin = styled.h3`
 const Footer = styled.footer`
   background: var(--primaryDark);
   height: 48px;
-`
-const LogoDescription = styled.h1`
-  color: var(--white);
-  margin: 16px 0px 40px;
 `
