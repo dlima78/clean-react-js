@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import {
   Spinner,
-  Header
+  Header,
+  Footer
 } from '@/presentation/components'
 
 const Login: React.FC = () => {
@@ -26,7 +27,7 @@ const Login: React.FC = () => {
           <Error>Error</Error>
         </ErrorWrap>
       </Form>
-      <Footer></Footer>
+      <Footer />
     </LoginWrapper>
   )
 }
@@ -119,9 +120,4 @@ const TitleLogin = styled.h3`
   color: var(--primaryDark);
   font-size: 20px;
   font-weight: 700;
-`
-
-const Footer = styled.footer`
-  background: var(--primaryDark);
-  height: 48px;
 `
