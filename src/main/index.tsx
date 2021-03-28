@@ -1,13 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Login } from '@/presentation/pages'
-import GlobalStyle from './global-styled'
+import { Router } from '@/presentation/components'
 
-ReactDOM.render(
-  <>
-    <GlobalStyle />
-    <Login />
-  </>
-  ,
-  document.getElementById('main')
-)
+ReactDOM.render(<Router />, document.getElementById('main'))
