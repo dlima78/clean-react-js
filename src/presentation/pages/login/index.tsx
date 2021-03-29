@@ -26,7 +26,7 @@ const Login: React.FC = () => {
         <S.TitleLogin>Login</S.TitleLogin>
         <Input type="text" placeholder="Digite seu email" />
         <Input type="password" placeholder="Digite sua senha" />
-        <S.Button>Entrar</S.Button>
+        <S.Button role="submit" disabled>Entrar</S.Button>
         <S.Link>Criar Conta</S.Link>
         <FormStatus />
       </S.Form>

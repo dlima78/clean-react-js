@@ -25,6 +25,15 @@ export const Button = styled.button`
   line-height: 40px;
   margin-top: 32px;
 
+  &:disabled {
+    background-color: var(--disabled);
+    color: var(--greyDark);
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   &:hover {
     opacity: 0.9;
   }

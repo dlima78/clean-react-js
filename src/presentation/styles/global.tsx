@@ -63,7 +63,7 @@ const GlobalStyles = createGlobalStyle`
     --blueLight: #cdeff1;
     --invalid: #ff6978ff;
     --valid: #41ead4ff;
-    --disabledColor: #666;
+    --disabled: #bbb;
     --greyDark: #30332E;
     --grey: #ccc;
     --greyLigth: #fafafa;
