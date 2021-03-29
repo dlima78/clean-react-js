@@ -3,11 +3,13 @@ import Context from '@/presentation/contexts/form/form-context'
 import * as S from './styled'
 
 const FormStatus: React.FC = () => {
-  const { isLoading, errorMessage } = useContext(Context)
+  const { state, errorState } = useContext(Context)
+  const { main } = errorState
+  const { isLoading } = state
   return (
     <S.ErrorWrap role='error-wrap'>
       { isLoading && <S.LoadSpinner />}
-      { errorMessage && <S.Error>{ errorMessage }</S.Error> }
+      { main && <S.Error>{ main }</S.Error> }
     </S.ErrorWrap>
   )
 }

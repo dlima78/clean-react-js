@@ -6,7 +6,7 @@ display: flex;
 margin-top: 16px;
 position: relative;
 `
-export const InputContainer = styled.input`
+export const InputStyled = styled.input`
 border: 1px solid var(--grey);
 border-radius: 4px;
 flex-grow: 1;
