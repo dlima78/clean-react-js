@@ -10,7 +10,7 @@ export const Form = styled.form`
   align-self: center;
   background: var(--white);
   box-shadow: 0px 1px 3px -1px var(--black);
-  border-radius: 2px;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -18,11 +18,11 @@ export const Form = styled.form`
 `
 export const Button = styled.button`
   border: none;
-  border-radius: 2px;
+  border-radius: 4px;
   background: var(--blue);
   color: var(--white);
   font-size: 16px;
-  line-height: 48px;
+  line-height: 40px;
   margin-top: 32px;
 
   &:hover {

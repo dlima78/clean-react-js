@@ -6,7 +6,7 @@ export const ErrorWrap = styled.div`
   display: flex;
   flex-direction: column;
 `
-export const LoadingSpinner = styled(Spinner)`
+export const LoadSpinner = styled(Spinner)`
   margin-top: 30px;
 `
 export const Error = styled.span`

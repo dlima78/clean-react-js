@@ -8,14 +8,14 @@ position: relative;
 `
 export const InputContainer = styled.input`
 border: 1px solid var(--grey);
-border-radius: 2px;
+border-radius: 4px;
 flex-grow: 1;
 line-height: 40px;
 outline: none;
 padding: 0px 40px 0px 8px;
 
 &:focus {
-  border: 1px solid var(--primaryDark);
+  border: 1px solid var(--primary);
 }
 `
 export const Status = styled.span`
