@@ -6,9 +6,11 @@ import Login from './'
 
 class ValidationSpy implements Validation {
   errorMessage: string
-  input: object
-  validate (input: object): string {
-    this.input = input
+  fieldName: string
+  fieldValue: string
+  validate (fieldName: string, fieldValue: string): string {
+    this.fieldName = fieldName
+    this.fieldValue = fieldValue
     return this.errorMessage
   }
 }
@@ -45,17 +47,15 @@ describe('Login Component', () => {
     const { validationSpy } = makeSut()
     const emailInput = screen.getByRole('email')
     userEvent.type(emailInput, 'any_email')
-    expect(validationSpy.input).toEqual({
-      email: 'any_email'
-    })
+    expect(validationSpy.fieldName).toBe('email')
+    expect(validationSpy.fieldValue).toBe('any_email')
   })
 
   test('Should call Validation with correct password', () => {
     const { validationSpy } = makeSut()
     const passwordInput = screen.getByRole('password')
     userEvent.type(passwordInput, 'any_password')
-    expect(validationSpy.input).toEqual({
-      password: 'any_password'
-    })
+    expect(validationSpy.fieldName).toBe('password')
+    expect(validationSpy.fieldValue).toBe('any_password')
   })
 })
