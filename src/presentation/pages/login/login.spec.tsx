@@ -1,10 +1,12 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, RenderResult } from '@testing-library/react'
 import Login from './'
+
+const makeSut = (): RenderResult => render(<Login />)
 
 describe('Login Component', () => {
   test('Should start with initial state', () => {
-    render(<Login />)
+    makeSut()
     const errorWrap = screen.getByRole('error-wrap')
     expect(errorWrap.childElementCount).toBe(0)
     const submitButton = screen.getByRole('button',
