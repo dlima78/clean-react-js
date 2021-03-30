@@ -6,8 +6,8 @@ import {
   Input
 } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
-import { Validation } from '@/presentation/protocols'
 import * as S from './styled'
+import { Validation } from '@/presentation/protocols'
 
 type Props = {
   validation: Validation
@@ -31,11 +31,16 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     })
   }, [state.email, state.password])
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    setState({ ...state, isLoading: true })
+  }
+
   return (
     <S.LoginWrapper>
       <Header />
       <Context.Provider value = {{ state, setState }}>
-      <S.Form>
+      <S.Form onSubmit={handleSubmit}>
         <S.TitleLogin>Login</S.TitleLogin>
         <Input type="text" name='email' placeholder="Digite seu email" />
         <Input type="password" name='password' placeholder="Digite sua senha" />

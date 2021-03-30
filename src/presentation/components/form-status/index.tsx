@@ -7,7 +7,7 @@ const FormStatus: React.FC = () => {
   const { isLoading, mainError } = state
   return (
     <S.ErrorWrap role='error-wrap'>
-      { isLoading && <S.LoadSpinner />}
+      { isLoading && <S.LoadSpinner role='spinner' />}
       { mainError && <S.Error>{ mainError }</S.Error> }
     </S.ErrorWrap>
   )
