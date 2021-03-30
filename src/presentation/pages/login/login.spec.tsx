@@ -12,6 +12,7 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy()
+  validationSpy.errorMessage = faker.random.words()
   render(<Login validation={validationSpy} />)
   return {
     validationSpy
@@ -20,14 +21,14 @@ const makeSut = (): SutTypes => {
 
 describe('Login Component', () => {
   test('Should start with initial state', () => {
-    makeSut()
+    const { validationSpy } = makeSut()
     const errorWrap = screen.getByRole('error-wrap')
     expect(errorWrap.childElementCount).toBe(0)
     const submitButton = screen.getByRole('button',
       { name: /entrar/i }) as HTMLButtonElement
     expect(submitButton.disabled).toBe(true)
     const emailStatus = screen.getByRole('email-status')
-    expect(emailStatus.title).toBe('Campo obrigatório')
+    expect(emailStatus.title).toBe(validationSpy.errorMessage)
     expect(emailStatus.textContent).toBe('🔴')
     const passwordStatus = screen.getByRole('password-status')
     expect(passwordStatus.title).toBe('Campo obrigatório')
@@ -41,6 +42,15 @@ describe('Login Component', () => {
     userEvent.type(emailInput, email)
     expect(validationSpy.fieldName).toBe('email')
     expect(validationSpy.fieldValue).toBe(email)
+  })
+
+  test('Should show email error if Validation fails', () => {
+    const { validationSpy } = makeSut()
+    const emailInput = screen.getByRole('email')
+    userEvent.type(emailInput, faker.internet.email())
+    const emailStatus = screen.getByRole('email-status')
+    expect(emailStatus.title).toBe(validationSpy.errorMessage)
+    expect(emailStatus.textContent).toBe('🔴')
   })
 
   test('Should call Validation with correct password', () => {
