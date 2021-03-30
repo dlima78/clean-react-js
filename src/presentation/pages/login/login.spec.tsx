@@ -81,4 +81,17 @@ describe('Login Component', () => {
       { name: /entrar/i }) as HTMLButtonElement
     expect(submitButton.disabled).toBe(false)
   })
+
+  test('Should show spinner on submit', () => {
+    makeSut()
+    const emailInput = screen.getByRole('email')
+    userEvent.type(emailInput, faker.internet.email())
+    const passwordInput = screen.getByRole('password')
+    userEvent.type(passwordInput, faker.internet.email())
+    const submitButton = screen.getByRole('button',
+      { name: /entrar/i })
+    userEvent.click(submitButton)
+    const spinner = screen.getByRole('spinner')
+    expect(spinner).toBeTruthy()
+  })
 })
