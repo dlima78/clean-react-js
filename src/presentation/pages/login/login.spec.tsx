@@ -1,19 +1,27 @@
 import React from 'react'
-import { render, RenderResult, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import faker from 'faker'
 
-import { ValidationStub } from '@/presentation/tests'
+import { AuthenticationSpy, ValidationStub } from '@/presentation/tests'
 import Login from './'
 
 type SutParams = {
   validationError: string
 }
 
-const makeSut = (params?: SutParams): RenderResult => {
+type SutTypes = {
+  authenticationSpy: AuthenticationSpy
+}
+
+const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
+  const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
-  return render(<Login validation={validationStub} />)
+  render(<Login validation={validationStub} authentication={authenticationSpy} />)
+  return {
+    authenticationSpy
+  }
 }
 
 describe('Login Component', () => {
@@ -65,7 +73,7 @@ describe('Login Component', () => {
   test('Should show valid password state if Validation succeeds', () => {
     makeSut()
     const passwordInput = screen.getByRole('password')
-    userEvent.type(passwordInput, faker.internet.email())
+    userEvent.type(passwordInput, faker.internet.password())
     const passwordStatus = screen.getByRole('password-status')
     expect(passwordStatus.title).toBe('Tudo certo')
     expect(passwordStatus.textContent).toBe('🟢')
@@ -76,7 +84,7 @@ describe('Login Component', () => {
     const emailInput = screen.getByRole('email')
     userEvent.type(emailInput, faker.internet.email())
     const passwordInput = screen.getByRole('password')
-    userEvent.type(passwordInput, faker.internet.email())
+    userEvent.type(passwordInput, faker.internet.password())
     const submitButton = screen.getByRole('button',
       { name: /entrar/i }) as HTMLButtonElement
     expect(submitButton.disabled).toBe(false)
@@ -87,11 +95,28 @@ describe('Login Component', () => {
     const emailInput = screen.getByRole('email')
     userEvent.type(emailInput, faker.internet.email())
     const passwordInput = screen.getByRole('password')
-    userEvent.type(passwordInput, faker.internet.email())
+    userEvent.type(passwordInput, faker.internet.password())
     const submitButton = screen.getByRole('button',
       { name: /entrar/i })
     userEvent.click(submitButton)
     const spinner = screen.getByRole('spinner')
     expect(spinner).toBeTruthy()
+  })
+
+  test('Should call Authentication with correct values', () => {
+    const { authenticationSpy } = makeSut()
+    const emailInput = screen.getByRole('email')
+    const email = faker.internet.email()
+    userEvent.type(emailInput, email)
+    const passwordInput = screen.getByRole('password')
+    const password = faker.internet.password()
+    userEvent.type(passwordInput, password)
+    const submitButton = screen.getByRole('button',
+      { name: /entrar/i })
+    userEvent.click(submitButton)
+    expect(authenticationSpy.params).toEqual({
+      email,
+      password
+    })
   })
 })
