@@ -8,7 +8,7 @@ const Input: React.FC<Props> = (props: Props) => {
   const { state, setState } = useContext(Context)
   const error = state[`${props.name}Error`]
   const getStatus = (): string => {
-    return '🔴'
+    return error ? '🔴' : '🟢'
   }
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
@@ -19,7 +19,7 @@ const Input: React.FC<Props> = (props: Props) => {
   }
 
   const getTitle = (): string => {
-    return error
+    return error || 'Tudo certo'
   }
   return (
     <S.InputWrap>
