@@ -1,9 +1,10 @@
 import React from 'react'
-import { render, RenderResult, screen } from '@testing-library/react'
+import { fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import faker from 'faker'
 
 import { AuthenticationSpy, ValidationStub } from '@/presentation/tests'
+import { InvalidCredentialsError } from '@/domain/errors'
 import Login from './'
 
 type SutParams = {
@@ -116,10 +117,24 @@ describe('Login Component', () => {
     })
   })
 
-  test('Should call Authentication only once', async () => {
+  test('Should not call Authentication if form is invalid', async () => {
+    const validationError = faker.random.words()
+    const { authenticationSpy } = makeSut({ validationError })
+    populateEmailField()
+    fireEvent.submit(screen.getByRole('form'))
+    expect(authenticationSpy.callsCount).toBe(0)
+  })
+
+  test('Should present error if Authentication fails', async () => {
     const { authenticationSpy } = makeSut()
+    const error = new InvalidCredentialsError()
+    jest.spyOn(authenticationSpy, 'auth')
+      .mockReturnValueOnce(Promise.reject(error))
     simulateValidSubmit()
-    simulateValidSubmit()
-    expect(authenticationSpy.callsCount).toBe(1)
+    const errorWrap = screen.getByRole('error-wrap')
+    await waitFor(() => errorWrap)
+    const mainError = screen.getByRole('main-error')
+    expect(mainError.textContent).toBe(error.message)
+    expect(errorWrap.childElementCount).toBe(1)
   })
 })
