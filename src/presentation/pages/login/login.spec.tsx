@@ -1,6 +1,7 @@
 import React from 'react'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 import {
-  RenderResult,
   fireEvent,
   waitFor,
   render,
@@ -20,17 +21,20 @@ type SutParams = {
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
-  sut: RenderResult
 }
 
+const history = createMemoryHistory()
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
-  const sut = render(<Login validation={validationStub} authentication={authenticationSpy} />)
+  render(
+    <Router history={history} >
+      <Login validation={validationStub} authentication={authenticationSpy} />
+    </Router>
+  )
   return {
-    authenticationSpy,
-    sut
+    authenticationSpy
   }
 }
 
@@ -153,5 +157,13 @@ describe('Login Component', () => {
     simulateValidSubmit()
     await waitFor(() => screen.getByRole('form'))
     expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+  })
+
+  test('Should go to signup page', () => {
+    makeSut()
+    const signup = screen.getByRole('signup')
+    userEvent.click(signup)
+    expect(history.length).toBe(2)
+    expect(history.location.pathname).toBe('/signup')
   })
 })
