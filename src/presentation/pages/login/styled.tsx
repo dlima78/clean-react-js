@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const LoginWrapper = styled.div`
   display: flex;
@@ -39,7 +40,7 @@ export const Button = styled.button`
   }
 `
 
-export const Link = styled.span`
+export const LinkStyled = styled(Link)`
   color: var(--blueDark);
   cursor: pointer;
   font-size: 12px;
