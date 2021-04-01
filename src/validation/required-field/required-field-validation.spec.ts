@@ -1,5 +1,6 @@
 import { RequiredFieldError } from '@/validation/errors'
 import { RequiredFieldValidation } from './required-field-validation'
+import faker from 'faker'
 
 type SutTypes = {
   sut: RequiredFieldValidation
@@ -17,5 +18,11 @@ describe('RequiredFieldValidation', () => {
     const { sut } = makeSut('email')
     const error = sut.validate('')
     expect(error).toEqual(new RequiredFieldError())
+  })
+
+  test('Should return falsy if field is not empty', () => {
+    const { sut } = makeSut('email')
+    const error = sut.validate(faker.random.word())
+    expect(error).toBeFalsy()
   })
 })
