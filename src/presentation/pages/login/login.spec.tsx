@@ -13,7 +13,7 @@ import 'jest-localstorage-mock'
 
 import { AuthenticationSpy, ValidationStub } from '@/presentation/tests'
 import { InvalidCredentialsError } from '@/domain/errors'
-import Login from './'
+import { Login } from '@/presentation/pages'
 
 type SutParams = {
   validationError: string
