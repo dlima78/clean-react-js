@@ -25,6 +25,7 @@ export const Button = styled.button`
   font-size: 16px;
   line-height: 40px;
   margin-top: 32px;
+  outline: none;
 
   &:disabled {
     background-color: var(--disabled);
