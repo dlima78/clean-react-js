@@ -29,7 +29,7 @@ describe('ValidationBuilder', () => {
 
   test('Should return a list of validations', () => {
     const field = faker.database.column()
-    const length = faker.random.number()
+    const length = faker.datatype.number()
     const validations = ValidationBuilder.field(field).required().min(length).email().build()
     expect(validations).toStrictEqual([
       new RequiredFieldValidation(field),
