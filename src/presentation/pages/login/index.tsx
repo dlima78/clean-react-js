@@ -10,13 +10,15 @@ import Context from '@/presentation/contexts/form/form-context'
 import * as S from './styled'
 import { Validation } from '@/presentation/protocols'
 import { Authentication } from '@/domain/usecases'
+import { SaveAccessToken } from '@/domain/usecases/save-access-token'
 
 type Props = {
   validation: Validation
   authentication: Authentication
+  saveAccessToken: SaveAccessToken
 }
 
-const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }: Props) => {
   const history = useHistory()
   const [state, setState] = useState({
     isLoading: false,
@@ -46,7 +48,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         email: state.email,
         password: state.password
       })
-      localStorage.setItem('accessToken', account.accessToken)
+      await saveAccessToken.save(account.accessToken)
       history.replace('/')
     } catch (error) {
       setState({
