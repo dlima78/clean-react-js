@@ -1,8 +1,4 @@
-import {
-  RequiredFieldValidation,
-  MinLengthValidation,
-  EmailValidation
-} from '@/validation/validators'
+import { RequiredFieldValidation, MinLengthValidation, EmailValidation } from '@/validation/validators'
 import { ValidationBuilder } from './validation-builder'
 
 import faker from 'faker'

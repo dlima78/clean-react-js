@@ -3,7 +3,7 @@ import { UnexpectedError, EmailInUseError } from '@/domain/errors'
 import { HttpPostClientSpy } from '@/data/tests'
 import { RemoteAddAccount } from './remote-add-account'
 import { HttpStatusCode } from '@/data/protocols/http'
-import { AddAccount } from '@/domain/usecases/add-account'
+import { AddAccount } from '@/domain/usecases'
 
 import faker from 'faker'
 

@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { FormStatus, Header, Footer, Input } from '@/presentation/components'
+import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import { useHistory } from 'react-router-dom'
-import {
-  FormStatus,
-  Header,
-  Footer,
-  Input
-} from '@/presentation/components'
-import Context from '@/presentation/contexts/form/form-context'
+
 import * as S from './styled'
 import { Validation } from '@/presentation/protocols'
-import { Authentication } from '@/domain/usecases'
-import { SaveAccessToken } from '@/domain/usecases/save-access-token'
+import Context from '@/presentation/contexts/form/form-context'
 
 type Props = {
   validation: Validation

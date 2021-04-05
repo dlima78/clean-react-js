@@ -1,7 +1,7 @@
 import { MinLengthValidation } from './min-length-validation'
 
-import faker from 'faker'
 import { InvalidFieldError } from '@/validation/errors'
+import faker from 'faker'
 
 const makeSut = (): MinLengthValidation => new MinLengthValidation(faker.random.word(), 5)
 

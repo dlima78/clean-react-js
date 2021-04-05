@@ -1,6 +1,6 @@
 import { UnexpectedError, EmailInUseError } from '@/domain/errors'
 import { HttpPostClient, HttpStatusCode } from '@/data/protocols/http'
-import { AddAccount } from '@/domain/usecases/add-account'
+import { AddAccount } from '@/domain/usecases'
 
 export class RemoteAddAccount implements AddAccount {
   constructor (
