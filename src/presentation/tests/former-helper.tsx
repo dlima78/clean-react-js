@@ -22,3 +22,8 @@ export const populateField = (fieldName: string, value = faker.random.word()): v
   const input = screen.getByRole(fieldName)
   userEvent.type(input, value)
 }
+
+export const testElementExist = (fieldName: string): void => {
+  const element = screen.getByRole(fieldName)
+  expect(element).toBeTruthy()
+}

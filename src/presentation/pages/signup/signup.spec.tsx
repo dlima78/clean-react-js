@@ -1,5 +1,11 @@
 import React from 'react'
-import { render, RenderResult } from '@testing-library/react'
+import {
+  render,
+  RenderResult,
+  screen,
+  fireEvent,
+  waitFor
+} from '@testing-library/react'
 import faker from 'faker'
 
 import { Helper, ValidationStub } from '@/presentation/tests'
@@ -15,6 +21,20 @@ const makeSut = (params?: SutParams): RenderResult => {
   return render(
     <Signup validation={validationStub} />
   )
+}
+
+export const simulateValidSubmit = async (
+  name = faker.name.findName(),
+  email = faker.internet.email(),
+  password = faker.internet.password()
+): Promise<void> => {
+  Helper.populateField('name', name)
+  Helper.populateField('email', email)
+  Helper.populateField('password', password)
+  Helper.populateField('passwordConfirmation', password)
+  const form = screen.getByRole('form')
+  fireEvent.submit(form)
+  await waitFor(() => form)
 }
 
 describe('Signup component', () => {
@@ -89,5 +109,11 @@ describe('Signup component', () => {
     Helper.populateField('password')
     Helper.populateField('passwordConfirmation')
     Helper.testButtonIsDisable('button', /Criar Conta/i, false)
+  })
+
+  test('Should show spinner on submit', async () => {
+    makeSut()
+    await simulateValidSubmit()
+    Helper.testElementExist('spinner')
   })
 })
