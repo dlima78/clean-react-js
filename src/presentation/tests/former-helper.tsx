@@ -1,4 +1,6 @@
+import userEvent from '@testing-library/user-event'
 import { screen } from '@testing-library/react'
+import faker from 'faker'
 
 export const testStatusForField = (fieldName: string, validationError?: string): void => {
   const fieldStatus = screen.getByRole(`${fieldName}-status`)
@@ -14,4 +16,9 @@ export const testChildCount = (field: string, count: number): void => {
 export const testButtonIsDisable = (fieldName: string, buttonName: RegExp, isDisabled: boolean): void => {
   const button = screen.getByRole(fieldName, { name: buttonName }) as HTMLButtonElement
   expect(button.disabled).toBe(isDisabled)
+}
+
+export const populateField = (fieldName: string, value = faker.random.word()): void => {
+  const input = screen.getByRole(fieldName)
+  userEvent.type(input, value)
 }
