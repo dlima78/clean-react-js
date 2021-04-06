@@ -5,7 +5,7 @@ import { createMemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
 import faker from 'faker'
 
-import { AuthenticationSpy, ValidationStub, SaveAccessTokenMock } from '@/presentation/tests'
+import { AuthenticationSpy, ValidationStub, SaveAccessTokenMock, Helper } from '@/presentation/tests'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { Login } from '@/presentation/pages'
 
@@ -57,17 +57,6 @@ const populatePasswordField = (password = faker.internet.password()): void => {
   userEvent.type(passwordInput, password)
 }
 
-const testStatusForField = (fieldName: string, validationError?: string): void => {
-  const field = screen.getByRole(`${fieldName}-status`)
-  expect(field.title).toBe(validationError || 'Tudo certo')
-  expect(field.textContent).toBe(validationError ? '🔴' : '🟢')
-}
-
-const testErorWrapChildCount = (count: number): void => {
-  const errorWrap = screen.getByRole('error-wrap')
-  expect(errorWrap.childElementCount).toBe(count)
-}
-
 const testElementExist = (fieldName: string): void => {
   const element = screen.getByRole(fieldName)
   expect(element).toBeTruthy()
@@ -77,53 +66,48 @@ const testElementText = (fieldName: string, text: string): void => {
   expect(el.textContent).toBe(text)
 }
 
-const testButtonIsDisable = (fieldName: string, buttonName: RegExp, isDisabled: boolean): void => {
-  const button = screen.getByRole(fieldName, { name: buttonName }) as HTMLButtonElement
-  expect(button.disabled).toBe(isDisabled)
-}
-
 describe('Login Component', () => {
   test('Should start with initial state', () => {
     const validationError = faker.random.words()
     makeSut({ validationError })
-    testErorWrapChildCount(0)
+    Helper.testChildCount('error-wrap', 0)
 
-    testButtonIsDisable('button', /entrar/i, true)
-    testStatusForField('email', validationError)
-    testStatusForField('password', validationError)
+    Helper.testButtonIsDisable('button', /entrar/i, true)
+    Helper.testStatusForField('email', validationError)
+    Helper.testStatusForField('password', validationError)
   })
 
   test('Should show email error if Validation fails', () => {
     const validationError = faker.random.words()
     makeSut({ validationError })
     populateEmailField()
-    testStatusForField('email', validationError)
+    Helper.testStatusForField('email', validationError)
   })
 
   test('Should show password error if Validation fails', () => {
     const validationError = faker.random.words()
     makeSut({ validationError })
     populatePasswordField()
-    testStatusForField('password', validationError)
+    Helper.testStatusForField('password', validationError)
   })
 
   test('Should show valid email state if Validation succeeds', () => {
     makeSut()
     populateEmailField()
-    testStatusForField('email')
+    Helper.testStatusForField('email')
   })
 
   test('Should show valid password state if Validation succeeds', () => {
     makeSut()
     populatePasswordField()
-    testStatusForField('password')
+    Helper.testStatusForField('password')
   })
 
   test('Should enable submit button if form is valid', () => {
     makeSut()
     populateEmailField()
     populatePasswordField()
-    testButtonIsDisable('button', /entrar/i, false)
+    Helper.testButtonIsDisable('button', /entrar/i, false)
   })
 
   test('Should show spinner on submit', async () => {
@@ -160,7 +144,7 @@ describe('Login Component', () => {
     jest.spyOn(authenticationSpy, 'auth')
       .mockReturnValueOnce(Promise.reject(error))
     await simulateValidSubmit()
-    testErorWrapChildCount(1)
+    Helper.testChildCount('error-wrap', 1)
     testElementText('main-error', error.message)
   })
 
@@ -178,7 +162,7 @@ describe('Login Component', () => {
     jest.spyOn(saveAccessTokenMock, 'save')
       .mockReturnValueOnce(Promise.reject(error))
     await simulateValidSubmit()
-    testErorWrapChildCount(1)
+    Helper.testChildCount('error-wrap', 1)
     testElementText('main-error', error.message)
   })
 

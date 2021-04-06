@@ -1,7 +1,8 @@
 import React from 'react'
-import { render, RenderResult, screen } from '@testing-library/react'
+import { render, RenderResult } from '@testing-library/react'
 
 import { Signup } from '@/presentation/pages'
+import { Helper } from '@/presentation/tests'
 
 const makeSut = (): RenderResult => {
   return render(
@@ -9,32 +10,16 @@ const makeSut = (): RenderResult => {
   )
 }
 
-const testStatusForField = (fieldName: string, validationError?: string): void => {
-  const fieldStatus = screen.getByRole(`${fieldName}-status`)
-  expect(fieldStatus.title).toBe(validationError || 'Tudo certo')
-  expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
-}
-
-const testChildCount = (field: string, count: number): void => {
-  const el = screen.getByRole(field)
-  expect(el.childElementCount).toBe(count)
-}
-
-const testButtonIsDisable = (fieldName: string, buttonName: RegExp, isDisabled: boolean): void => {
-  const button = screen.getByRole(fieldName, { name: buttonName }) as HTMLButtonElement
-  expect(button.disabled).toBe(isDisabled)
-}
-
 describe('Signup component', () => {
   test('Should start with initial state', () => {
     const validationError = 'Campo obrigatório'
     makeSut()
-    testChildCount('error-wrap', 0)
+    Helper.testChildCount('error-wrap', 0)
 
-    testButtonIsDisable('button', /Criar Conta/i, true)
-    testStatusForField('name', validationError)
-    testStatusForField('email', validationError)
-    testStatusForField('password', validationError)
-    testStatusForField('passwordConfirmation', validationError)
+    Helper.testButtonIsDisable('button', /Criar Conta/i, true)
+    Helper.testStatusForField('name', validationError)
+    Helper.testStatusForField('email', validationError)
+    Helper.testStatusForField('password', validationError)
+    Helper.testStatusForField('passwordConfirmation', validationError)
   })
 })
