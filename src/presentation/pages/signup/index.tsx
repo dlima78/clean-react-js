@@ -31,11 +31,17 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
       passwordConfirmationError: validation.validate('passwordConfirmation', state.password)
     })
   }, [state.name, state.email, state.password])
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+    setState({ ...state, isLoading: true })
+  }
+
   return (
     <S.SignupWrapper>
        <Header />
       <Context.Provider value = {{ state, setState }}>
-      <S.Form role='form' >
+      <S.Form role='form' onSubmit={handleSubmit} >
         <S.TitleSignup>Login</S.TitleSignup>
         <Input type="text" name='name' placeholder="Digite seu nome" />
         <Input type="text" name='email' placeholder="Digite seu email" />
