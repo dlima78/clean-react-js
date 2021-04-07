@@ -4,17 +4,20 @@ import { Footer, Header, Input, FormStatus } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols'
 import * as S from './styled'
+import { AddAccount } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
+  addAccount: AddAccount
 }
 
-const Signup: React.FC<Props> = ({ validation }: Props) => {
+const Signup: React.FC<Props> = ({ validation, addAccount }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     name: '',
     email: '',
     password: '',
+    passwordConfirmation: '',
     nameError: '',
     emailError: '',
     passwordError: '',
@@ -28,13 +31,19 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
       nameError: validation.validate('name', state.name),
       emailError: validation.validate('email', state.email),
       passwordError: validation.validate('password', state.password),
-      passwordConfirmationError: validation.validate('passwordConfirmation', state.password)
+      passwordConfirmationError: validation.validate('passwordConfirmation', state.passwordConfirmation)
     })
   }, [state.name, state.email, state.password])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     setState({ ...state, isLoading: true })
+    await addAccount.add({
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      passwordConfirmation: state.passwordConfirmation
+    })
   }
 
   return (
