@@ -47,11 +47,6 @@ const simulateValidSubmit = async (email = faker.internet.email(), password = fa
   await waitFor(() => form)
 }
 
-const testElementText = (fieldName: string, text: string): void => {
-  const el = screen.getByRole(fieldName)
-  expect(el.textContent).toBe(text)
-}
-
 describe('Login Component', () => {
   test('Should start with initial state', () => {
     const validationError = faker.random.words()
@@ -131,7 +126,7 @@ describe('Login Component', () => {
       .mockReturnValueOnce(Promise.reject(error))
     await simulateValidSubmit()
     Helper.testChildCount('error-wrap', 1)
-    testElementText('main-error', error.message)
+    Helper.testElementText('main-error', error.message)
   })
 
   test('Should call SaveAccessToken with correct values', async () => {
@@ -149,7 +144,7 @@ describe('Login Component', () => {
       .mockRejectedValueOnce(error)
     await simulateValidSubmit()
     Helper.testChildCount('error-wrap', 1)
-    testElementText('main-error', error.message)
+    Helper.testElementText('main-error', error.message)
   })
 
   test('Should go to signup page', () => {
