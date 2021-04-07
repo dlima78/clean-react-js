@@ -27,3 +27,8 @@ export const testElementExist = (fieldName: string): void => {
   const element = screen.getByRole(fieldName)
   expect(element).toBeTruthy()
 }
+
+export const testElementText = (fieldName: string, text: string): void => {
+  const el = screen.getByRole(fieldName)
+  expect(el.textContent).toBe(text)
+}
