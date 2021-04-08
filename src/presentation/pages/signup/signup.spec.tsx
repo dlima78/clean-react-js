@@ -12,6 +12,7 @@ import faker from 'faker'
 import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '@/presentation/tests'
 import { EmailInUseError } from '@/domain/errors'
 import { Signup } from '@/presentation/pages'
+import userEvent from '@testing-library/user-event'
 
 type SutParams = {
   validationError: string
@@ -190,5 +191,13 @@ describe('Signup component', () => {
     await simulateValidSubmit()
     Helper.testChildCount('error-wrap', 1)
     Helper.testElementText('main-error', error.message)
+  })
+
+  test('Should go to login page', () => {
+    makeSut()
+    const signup = screen.getByRole('login')
+    userEvent.click(signup)
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/login')
   })
 })
