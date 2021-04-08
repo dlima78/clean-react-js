@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { FormStatus, Header, Footer, Input } from '@/presentation/components'
+import { FormStatus, Header, Footer, Input, SubmitButton } from '@/presentation/components'
 import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import { useHistory } from 'react-router-dom'
 
@@ -17,6 +17,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
   const history = useHistory()
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: true,
     email: '',
     password: '',
     emailError: '',
@@ -25,17 +26,20 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
   })
 
   useEffect(() => {
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password)
+      emailError,
+      passwordError,
+      isFormInvalid: !!emailError || !!passwordError
     })
   }, [state.email, state.password])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     try {
       event.preventDefault()
-      if (state.isLoading || state.emailError || state.passwordError) {
+      if (state.isLoading || state.isFormInvalid) {
         return
       }
       setState({ ...state, isLoading: true })
@@ -62,7 +66,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
         <S.TitleLogin>Login</S.TitleLogin>
         <Input type="text" name='email' placeholder="Digite seu email" />
         <Input type="password" name='password' placeholder="Digite sua senha" />
-        <S.Button disabled={!!state.emailError || !!state.passwordError} >Entrar</S.Button>
+        <SubmitButton text='Entrar' />
         <S.LinkStyled role='signup' to='/signup'>Criar Conta</S.LinkStyled>
         <FormStatus />
       </S.Form>
