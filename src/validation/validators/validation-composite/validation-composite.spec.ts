@@ -27,14 +27,14 @@ describe('ValidationComposite', () => {
     const error1 = faker.random.word()
     fieldValidationSpy[0].error = new Error(error1)
     fieldValidationSpy[1].error = new Error(faker.random.word())
-    const error = sut.validate(fieldName, faker.random.word())
+    const error = sut.validate(fieldName, { [fieldName]: faker.random.word() })
     expect(error).toBe(error1)
   })
 
   test('Should return falsy if validations does not fails', () => {
     const fieldName = faker.database.column()
     const { sut } = makeSut(fieldName)
-    const error = sut.validate(fieldName, faker.random.word())
+    const error = sut.validate(fieldName, { [fieldName]: faker.random.word() })
     expect(error).toBeFalsy()
   })
 })
