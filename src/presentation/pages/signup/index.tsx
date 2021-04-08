@@ -86,7 +86,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
             !!state.passwordConfirmationError
           }>
             Criar Conta</S.Button>
-        <S.LinkStyled role='login'>Já possui conta?</S.LinkStyled>
+        <S.LinkStyled role='login' to='/login' replace>Já possui conta?</S.LinkStyled>
         <FormStatus />
       </S.Form>
       </Context.Provider>
