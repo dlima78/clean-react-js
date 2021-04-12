@@ -57,8 +57,7 @@ describe('Login', () => {
 
   it('Should present save accessToken if valid credentials are provided', () => {
     cy.getByTestId('email').type('dlima78@gmail.com')
-    cy.getByTestId('password').type('123456')
-    cy.get('button[type=submit]').click()
+    cy.getByTestId('password').type('123456').type('{enter}')
     cy.getByTestId('error-wrap')
       .getByTestId('spinner').should('exist')
       .getByTestId('main-error').should('not.exist')
