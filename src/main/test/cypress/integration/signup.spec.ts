@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 describe('Signup', () => {
   beforeEach(() => {
     cy.visit('signup')
@@ -14,6 +16,27 @@ describe('Signup', () => {
       .should('contain.text', '🔴')
     cy.getByTestId('passwordConfirmation-status')
       .should('have.attr', 'title', 'Campo obrigatório')
+      .should('contain.text', '🔴')
+    cy.get('button[type=submit]').should('have.attr', 'disabled')
+    cy.getByTestId('error-wrap').should('not.have.descendants')
+  })
+
+  it('Should present error state if form is invalid', () => {
+    cy.getByTestId('name').type(faker.random.alphaNumeric(2))
+    cy.getByTestId('name-status')
+      .should('have.attr', 'title', 'Campo inválido')
+      .should('contain.text', '🔴')
+    cy.getByTestId('email').type(faker.random.word())
+    cy.getByTestId('email-status')
+      .should('have.attr', 'title', 'Campo inválido')
+      .should('contain.text', '🔴')
+    cy.getByTestId('password').type(faker.random.alphaNumeric(2))
+    cy.getByTestId('password-status')
+      .should('have.attr', 'title', 'Campo inválido')
+      .should('contain.text', '🔴')
+    cy.getByTestId('passwordConfirmation').type(faker.random.alphaNumeric(2))
+    cy.getByTestId('passwordConfirmation-status')
+      .should('have.attr', 'title', 'Campo inválido')
       .should('contain.text', '🔴')
     cy.get('button[type=submit]').should('have.attr', 'disabled')
     cy.getByTestId('error-wrap').should('not.have.descendants')
