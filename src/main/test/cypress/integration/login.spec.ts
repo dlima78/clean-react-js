@@ -68,4 +68,15 @@ describe('Login', () => {
       window.localStorage.getItem('accessToken')
     ))
   })
+
+  it('Should prevent multiple submits', () => {
+    cy.intercept({
+      method: 'Post',
+      url: /login/
+    }).as('request')
+    cy.getByTestId('email').type('dlima78@gmail.com')
+    cy.getByTestId('password').type('123456')
+    cy.get('button[type=submit]').dblclick()
+    cy.get('@request.all').should('have.length', 1)
+  })
 })
