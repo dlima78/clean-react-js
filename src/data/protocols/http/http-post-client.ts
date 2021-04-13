@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse } from './'
 
-export interface HttpPostClient<T, R> {
-  post: (params: HttpPostParams<T>) => Promise<HttpResponse<R>>
+export interface HttpPostClient<R = any> {
+  post: (params: HttpPostParams) => Promise<HttpResponse<R>>
 }
 
-export type HttpPostParams<T> = {
+export type HttpPostParams = {
   url: string
-  body?: T
+  body?: any
 }
