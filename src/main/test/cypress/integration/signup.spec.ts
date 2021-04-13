@@ -1,5 +1,7 @@
 import faker from 'faker'
 
+const baseUrl = Cypress.config().baseUrl
+
 describe('Signup', () => {
   beforeEach(() => {
     cy.visit('signup')
@@ -61,5 +63,16 @@ describe('Signup', () => {
       .should('contain.text', '🟢')
     cy.get('button[type=submit]').should('not.have.attr', 'disabled')
     cy.getByTestId('error-wrap').should('not.have.descendants')
+  })
+
+  it('Should present EmailInUseError if email already exists', () => {
+    cy.getByTestId('name').type('Eduardo Lima')
+    cy.getByTestId('email').type('dlima78@gmail.com')
+    cy.getByTestId('password').type('123456')
+    cy.getByTestId('passwordConfirmation').type('123456')
+    cy.get('button[type=submit]').click()
+    cy.getByTestId('error-wrap')
+      .getByTestId('main-error').should('contain.text', 'Email já cadastrado.')
+    cy.url().should('eq', `${baseUrl}/signup`)
   })
 })
