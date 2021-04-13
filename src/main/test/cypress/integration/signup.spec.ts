@@ -75,4 +75,19 @@ describe('Signup', () => {
       .getByTestId('main-error').should('contain.text', 'Email já cadastrado.')
     cy.url().should('eq', `${baseUrl}/signup`)
   })
+
+  it('Should present save accessToken on success', () => {
+    cy.getByTestId('name').type('Eduardo Lima')
+    cy.getByTestId('email').type('teste@teste.com')
+    cy.getByTestId('password').type('123456')
+    cy.getByTestId('passwordConfirmation').type('123456').type('{enter}')
+    cy.getByTestId('error-wrap')
+      .getByTestId('spinner').should('exist')
+      .getByTestId('main-error').should('not.exist')
+      .getByTestId('spinner').should('not.exist')
+    cy.url().should('eq', `${baseUrl}/`)
+    cy.window().then(window => assert.isOk(
+      window.localStorage.getItem('accessToken')
+    ))
+  })
 })
