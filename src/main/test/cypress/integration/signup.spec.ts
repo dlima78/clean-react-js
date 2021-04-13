@@ -76,18 +76,17 @@ describe('Signup', () => {
     cy.url().should('eq', `${baseUrl}/signup`)
   })
 
-  it('Should present save accessToken on success', () => {
-    cy.getByTestId('name').type('Eduardo Lima')
-    cy.getByTestId('email').type('teste@teste.com')
-    cy.getByTestId('password').type('123456')
-    cy.getByTestId('passwordConfirmation').type('123456').type('{enter}')
-    cy.getByTestId('error-wrap')
-      .getByTestId('spinner').should('exist')
-      .getByTestId('main-error').should('not.exist')
-      .getByTestId('spinner').should('not.exist')
-    cy.url().should('eq', `${baseUrl}/`)
-    cy.window().then(window => assert.isOk(
-      window.localStorage.getItem('accessToken')
-    ))
+  it('Should prevent multiple submits', () => {
+    cy.intercept({
+      method: 'Post',
+      url: /signup/
+    }).as('request')
+    const password = faker.random.alphaNumeric(5)
+    cy.getByTestId('name').type(faker.name.findName())
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('password').type(password)
+    cy.getByTestId('passwordConfirmation').type(password)
+    cy.get('button[type=submit]').dblclick()
+    cy.get('@request.all').should('have.length', 1)
   })
 })
