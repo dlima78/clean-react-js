@@ -30,8 +30,12 @@ export class HttpPostClientSpy<R> implements HttpPostClient<R> {
 
 export class HttpGetClientSpy<R> implements HttpGetClient<R> {
   url: string
+  response: HttpResponse<R> = {
+    statusCode: HttpStatusCode.ok
+  }
+
   async get (params: HttpGetParams): Promise<HttpResponse<R>> {
     this.url = params.url
-    return null
+    return Promise.resolve(this.response)
   }
 }
