@@ -52,7 +52,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    background: #fafafa;
+    /* background: #fafafa;
     line-height: 1;
     font-size: 100%;
     font-family: 'Roboto', sans-serif;
@@ -69,7 +69,26 @@ const GlobalStyles = createGlobalStyle`
     --greyLigth: #fafafa;
     --primary: #5b6d0c;
     --primaryDark: #323b06;
-    --primaryLight: #C2E812;
+    --primaryLight: #C2E812; */
+
+    background: #F0F9FC;
+    line-height: 1;
+    font-size: 100%;
+    font-family: 'Roboto', sans-serif;
+    --black: #0c0f0aff;
+    --white: #fff;
+    --blue: #0090c1ff;
+    --blueDark: #001731;
+    --blueLight: #cdeff1;
+    --invalid: #ff6978ff;
+    --valid: #41ead4ff;
+    --disabled: #bbb;
+    --greyDark: #2B2B2C;
+    --grey: #515C60;
+    --greyLigth: #fafafa;
+    --primary: #45A6C4;
+    --primaryDark: #183A45;
+    --primaryLight: #96DBE9;
   }
 
   
