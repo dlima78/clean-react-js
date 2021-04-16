@@ -1,19 +1,11 @@
-import { Footer, Logo } from '@/presentation/components'
+import { Footer, Header } from '@/presentation/components'
 import React from 'react'
 import styled from 'styled-components'
 
 const SurveyList: React.FC = () => {
   return (
     <SurveyListWrap>
-      <HeaderWrap>
-        <HeaderContent>
-          <Logo logoWidth='60px'/>
-          <LogoutWrap>
-            <UserName>Eduardo</UserName>
-            <LogoutLink href='#'>Sair</LogoutLink>
-          </LogoutWrap>
-        </HeaderContent>
-      </HeaderWrap>
+      <Header />
       <ContentWrap>
         <ContentTitle>Enquetes</ContentTitle>
         <List>
@@ -45,43 +37,6 @@ const SurveyListWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-`
-
-const HeaderWrap = styled.div`
-  display: flex;
-  background-color: var(--greyDark);
-  justify-content: center;
-`
-
-const HeaderContent = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: space-between;
-  max-width: 800px;
-  padding: 24px 40px;
-`
-const LogoutWrap = styled.div`
-  align-items: flex-end;
-  color: var(--white);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`
-
-const UserName = styled.span`
-  margin-bottom: 8px;
-`
-
-const LogoutLink = styled.a`
-  color: var(--white);
-  text-decoration: none;
-  font-size: 14px;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `
 
 const ContentWrap = styled.div`

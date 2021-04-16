@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { FormStatus, Header, Footer, Input, SubmitButton } from '@/presentation/components'
+import { FormStatus, LoginHeader, Footer, Input, SubmitButton } from '@/presentation/components'
 import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import { useHistory } from 'react-router-dom'
 
@@ -62,7 +62,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
 
   return (
     <S.LoginWrapper>
-      <Header />
+      <LoginHeader />
       <Context.Provider value = {{ state, setState }}>
       <S.Form role='form' onSubmit={handleSubmit}>
         <S.TitleLogin>Login</S.TitleLogin>
