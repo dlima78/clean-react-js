@@ -72,7 +72,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
   }
 
   return (
-    <S.SignupWrapper>
+    <S.SignupWrap>
        <LoginHeader />
       <Context.Provider value = {{ state, setState }}>
       <S.Form role='form' onSubmit={handleSubmit} >
@@ -87,7 +87,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
       </S.Form>
       </Context.Provider>
       <Footer />
-    </S.SignupWrapper>
+    </S.SignupWrap>
   )
 }
 

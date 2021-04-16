@@ -21,6 +21,30 @@ const SurveyList: React.FC = () => {
             </SurveyContent>
             <Button>Ver resultado</Button>
           </ListItem>
+          <ListItem>
+            <SurveyContent>
+              <Icon iconName={IconName.thumbDown} />
+              <Time>
+                <Day>22</Day>
+                <Month>03</Month>
+                <Year>2020</Year>
+              </Time>
+              <Title>Qual é o seu framework web favorito?</Title>
+            </SurveyContent>
+            <Button>Ver resultado</Button>
+          </ListItem>
+          <ListItem>
+            <SurveyContent>
+              <Icon iconName={IconName.thumbUp} />
+              <Time>
+                <Day>22</Day>
+                <Month>03</Month>
+                <Year>2020</Year>
+              </Time>
+              <Title>Qual é o seu framework web favorito?</Title>
+            </SurveyContent>
+            <Button>Ver resultado</Button>
+          </ListItem>
         </List>
       </ContentWrap>
       <Footer />
@@ -57,9 +81,12 @@ const ContentTitle = styled.h3`
 
 const List = styled.ul`
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media only screen and (max-width: 620px) {
+    flex-direction: column;
+  }
 `
 
 const ListItem = styled.li`
@@ -72,6 +99,10 @@ const ListItem = styled.li`
   height: 240px;
   justify-content: space-between;
   margin-bottom: 24px;
+
+  @media only screen and (max-width: 620px) {
+    flex-basis: 100%;
+  }
 `
 
 const SurveyContent = styled.div`
@@ -129,6 +160,7 @@ const Year = styled.span`
 
 const Title = styled.p`
   align-self: center;
+  flex-grow: 1;
   font-size: 18px;
   margin: 24px;
 `

@@ -61,7 +61,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
   }
 
   return (
-    <S.LoginWrapper>
+    <S.LoginWrap>
       <LoginHeader />
       <Context.Provider value = {{ state, setState }}>
       <S.Form role='form' onSubmit={handleSubmit}>
@@ -74,7 +74,7 @@ const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }:
       </S.Form>
       </Context.Provider>
       <Footer />
-    </S.LoginWrapper>
+    </S.LoginWrap>
   )
 }
 
