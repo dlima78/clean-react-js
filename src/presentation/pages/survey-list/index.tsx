@@ -19,50 +19,9 @@ const SurveyList: React.FC = () => {
         <List>
           <ListItem>
             <SurveyContent>
-              <Time>
-                <Day>22</Day>
-                <Month>03</Month>
-                <Year>2020</Year>
-              </Time>
-              <Title>Qual é o seu framework web favorito?</Title>
-            </SurveyContent>
-            <Button>Ver resultado</Button>
-          </ListItem>
-          <ListItem>
-            <SurveyContent>
-              <Time>
-                <Day>22</Day>
-                <Month>03</Month>
-                <Year>2020</Year>
-              </Time>
-              <Title>Qual é o seu framework web favorito?</Title>
-            </SurveyContent>
-            <Button>Ver resultado</Button>
-          </ListItem>
-          <ListItem>
-            <SurveyContent>
-              <Time>
-                <Day>22</Day>
-                <Month>03</Month>
-                <Year>2020</Year>
-              </Time>
-              <Title>Qual é o seu framework web favorito?</Title>
-            </SurveyContent>
-            <Button>Ver resultado</Button>
-          </ListItem>
-          <ListItem>
-            <SurveyContent>
-              <Time>
-                <Day>22</Day>
-                <Month>03</Month>
-                <Year>2020</Year>
-              </Time>
-              <Title>Qual é o seu framework web favorito?</Title>
-            </SurveyContent>
-            <Button>Ver resultado</Button>
-          </ListItem>
-          <ListItem>
-            <SurveyContent>
+              <IconWrap >
+                <Icon/>
+              </IconWrap>
               <Time>
                 <Day>22</Day>
                 <Month>03</Month>
@@ -170,9 +129,30 @@ const SurveyContent = styled.div`
   position: relative;
 
 `
+type Props = {
+  bcOk?: string
+}
+
+const IconWrap = styled.div<Props>`
+  align-items: center;
+  background: ${props => props.bcOk ? 'var(--valid)' : 'var(--invalid)'};
+  border-radius: 100%;
+  box-shadow: 0px 1px 3px -1px var(--black);
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+`
+
+const Icon = styled.img.attrs(() => ({
+  src: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAFKADAAQAAAABAAAAEgAAAAA9nQVdAAAA70lEQVQ4Ea2RPQoCQQyFZ/w5g72lYOEVPIiV2IkIHmCvIZ5D77BgZWtrYWe1ICiuL8tEwjIZZmYNZCf7knyTzRrjrK7rAfwAr+AheyNZwiei98gNrBkISxYjz5KbZb0V4gXxlN8jzo+1tk91BOT6nhPmOFNg1Nb0UiCNxY0Uu8QW044BuMIZHs3DJzcra3/yOgem3UoT3pEcaQUh3TchAX9/KNTsy/mAtLebrzhXI+AqE/oQl55ErIfYxp5WothW71QyAJ0VWKG06DJAQ/jTA0yH0TUAzf4Gc8BFC5g3GcHI3IQvBy0asesDsB08CfYFB/44kX6+Hj8AAAAASUVORK5CYII='
+}))`
+`
 
 const Button = styled.div`
-  background: var(--primary);
+  background: #03a9f4;
   border-radius: 0px 0px 8px 8px;
   color: var(--white);
   cursor: pointer;
@@ -188,7 +168,7 @@ const Button = styled.div`
 const Time = styled.time`
   align-items: center;
   align-self: center;
-  background: var(--grey);
+  background: #006064;
   border-radius: 24px;
   box-shadow: 6px 8px 0px 0px rgba(0, 0, 0, 0.24);
   color: var(--white);
@@ -203,7 +183,7 @@ const Time = styled.time`
 
 const Day = styled.span`
   font-weight: bold;
-  font-size: 40px;
+  font-size: 32px;
 `
 
 const Month = styled.span`

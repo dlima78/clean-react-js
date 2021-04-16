@@ -80,7 +80,7 @@ const GlobalStyles = createGlobalStyle`
     --blue: #0090c1ff;
     --blueDark: #001731;
     --blueLight: #cdeff1;
-    --invalid: #ff6978ff;
+    --invalid: #f44336;
     --valid: #41ead4ff;
     --disabled: #bbb;
     --greyDark: #2B2B2C;
