@@ -55,7 +55,7 @@ describe('Login', () => {
     cy.url().should('eq', `${baseUrl}/login`)
   })
 
-  it('Should present save accessToken if valid credentials are provided', () => {
+  it('Should present save account if valid credentials are provided', () => {
     cy.getByTestId('email').type('dlima78@gmail.com')
     cy.getByTestId('password').type('123456').type('{enter}')
     cy.getByTestId('error-wrap')
@@ -64,7 +64,7 @@ describe('Login', () => {
       .getByTestId('spinner').should('not.exist')
     cy.url().should('eq', `${baseUrl}/`)
     cy.window().then(window => assert.isOk(
-      window.localStorage.getItem('accessToken')
+      window.localStorage.getItem('account')
     ))
   })
 
