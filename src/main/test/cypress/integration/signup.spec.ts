@@ -76,7 +76,7 @@ describe('Signup', () => {
     cy.url().should('eq', `${baseUrl}/signup`)
   })
 
-  it.only('Should prevent multiple submits', () => {
+  it('Should prevent multiple submits', () => {
     cy.intercept({
       method: 'Post',
       url: /signup/

@@ -1,22 +1,18 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
+import { makeLogin, makeSignup } from '@/main/factories/pages'
 import GlobalStyle from '@/presentation/styles/global'
 import { SurveyList } from '@/presentation/pages'
 
-type Factory = {
-  makeLogin: React.FC
-  makeSignup: React.FC
-}
-
-const Router: React.FC<Factory> = (factory: Factory) => {
+const Router: React.FC = () => {
   return (
     <BrowserRouter>
       <GlobalStyle />
       <Switch>
-        <Route path='/login' exact component={ factory.makeLogin } />
-        <Route path='/signup' exact component={factory.makeSignup} />
-        <Route path='/surveys' exact component={SurveyList} />
+        <Route path='/login' exact component={ makeLogin } />
+        <Route path='/signup' exact component={ makeSignup} />
+        <Route path='/' exact component={SurveyList} />
       </Switch>
     </BrowserRouter>
   )
