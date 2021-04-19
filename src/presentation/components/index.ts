@@ -1,3 +1,4 @@
+export { default as PrivateRoute } from './private-route'
 export { default as SubmitButton } from './submit-button'
 export { default as LoginHeader } from './login-header'
 export { default as FormStatus } from './form-status'
