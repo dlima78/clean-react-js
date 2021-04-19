@@ -5,13 +5,14 @@ import { makeLogin, makeSignup } from '@/main/factories/pages'
 import GlobalStyle from '@/presentation/styles/global'
 import { ApiContext } from '@/presentation/contexts'
 import { SurveyList } from '@/presentation/pages'
-import { setCurrentAccountAdapter } from '../adapters/current-account-adapter'
+import { getCurrentAccountAdapter, setCurrentAccountAdapter } from '../adapters/current-account-adapter'
 
 const Router: React.FC = () => {
   return (
     <ApiContext.Provider
       value={{
-        setCurrentAccount: setCurrentAccountAdapter
+        setCurrentAccount: setCurrentAccountAdapter,
+        getCurrentAccount: getCurrentAccountAdapter
       }}>
       <BrowserRouter>
         <GlobalStyle />
