@@ -6,7 +6,7 @@ import * as S from './styled'
 const SurveyList: React.FC = () => {
   return (
     <S.SurveyListWrap>
-      <Header />S.
+      <Header />
       <S.ContentWrap>
         <S.ContentTitle>Enquetes</S.ContentTitle>
         <S.List>

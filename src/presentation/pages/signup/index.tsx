@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { Footer, LoginHeader, Input, FormStatus, SubmitButton } from '@/presentation/components'
-import Context from '@/presentation/contexts/form/form-context'
+import { FormContext, ApiContext } from '@/presentation/contexts'
 import { Validation } from '@/presentation/protocols'
 import * as S from './styled'
-import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases'
+import { AddAccount } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
   addAccount: AddAccount
-  updateCurrentAccount: UpdateCurrentAccount
 }
 
-const Signup: React.FC<Props> = ({ validation, addAccount, updateCurrentAccount }: Props) => {
+const Signup: React.FC<Props> = ({ validation, addAccount }: Props) => {
+  const { setCurrentAccount } = useContext(ApiContext)
   const history = useHistory()
   const [state, setState] = useState({
     isLoading: false,
@@ -60,7 +60,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, updateCurrentAccount 
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       })
-      await updateCurrentAccount.save(account)
+      setCurrentAccount(account)
       history.replace('/')
     } catch (error) {
       setState({
@@ -74,7 +74,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, updateCurrentAccount 
   return (
     <S.SignupWrap>
        <LoginHeader />
-      <Context.Provider value = {{ state, setState }}>
+      <FormContext.Provider value = {{ state, setState }}>
       <S.Form role='form' onSubmit={handleSubmit} >
         <S.TitleSignup>Login</S.TitleSignup>
         <Input type="text" name='name' placeholder="Digite seu nome" />
@@ -85,7 +85,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, updateCurrentAccount 
         <S.LinkStyled role='login' to='/login' replace>Já possui conta?</S.LinkStyled>
         <FormStatus />
       </S.Form>
-      </Context.Provider>
+      </FormContext.Provider>
       <Footer />
     </S.SignupWrap>
   )
