@@ -13,7 +13,7 @@ type Props = {
 const Icon: React.FC<Props> = ({ iconName }: Props) => {
   return (
     <IconWrap iconName={iconName}>
-      <IconComponent src={iconName} />
+      <IconComponent role='icon' src={iconName} />
     </IconWrap>
   )
 }
