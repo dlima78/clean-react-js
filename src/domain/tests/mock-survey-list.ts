@@ -1,5 +1,6 @@
 import { SurveyModel } from '@/domain/models'
 import faker from 'faker'
+import { LoadSurveyList } from '../usecases/load-survey-list'
 
 export const mockSurveyModel = (): SurveyModel => ({
   id: faker.datatype.uuid(),
@@ -17,3 +18,11 @@ export const mockSurveyListModel = (): SurveyModel[] => ([
   mockSurveyModel(),
   mockSurveyModel()
 ])
+
+export class LoadSurveyListSpy implements LoadSurveyList {
+  callsCount = 0
+  async loadAll (): Promise<SurveyModel[]> {
+    this.callsCount++
+    return null
+  }
+}
