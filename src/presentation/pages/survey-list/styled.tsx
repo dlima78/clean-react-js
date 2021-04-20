@@ -24,13 +24,3 @@ export const ContentTitle = styled.h3`
   margin-bottom: 24px;
   text-transform: uppercase;
 `
-
-export const List = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  @media only screen and (max-width: 620px) {
-    flex-direction: column;
-  }
-`
