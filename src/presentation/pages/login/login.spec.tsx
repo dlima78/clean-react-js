@@ -6,10 +6,11 @@ import { Router } from 'react-router-dom'
 import React from 'react'
 import faker from 'faker'
 
-import { AuthenticationSpy, ValidationStub, Helper } from '@/presentation/tests'
+import { ValidationStub, Helper } from '@/presentation/tests'
 import { InvalidCredentialsError } from '@/domain/errors'
 import { Login } from '@/presentation/pages'
-import { AccountModel } from '@/domain/models'
+import { Authentication } from '@/domain/usecases'
+import { AuthenticationSpy } from '@/domain/tests'
 
 type SutParams = {
   validationError: string
@@ -17,7 +18,7 @@ type SutParams = {
 
 type SutTypes = {
   authenticationSpy: AuthenticationSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: Authentication.Model) => void
 }
 
 const history = createMemoryHistory({ initialEntries: ['/login'] })

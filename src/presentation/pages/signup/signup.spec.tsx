@@ -9,12 +9,13 @@ import { createMemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
 import faker from 'faker'
 
-import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/tests'
+import { Helper, ValidationStub } from '@/presentation/tests'
 import { ApiContext } from '@/presentation/contexts'
 import { EmailInUseError } from '@/domain/errors'
 import { Signup } from '@/presentation/pages'
 import userEvent from '@testing-library/user-event'
-import { AccountModel } from '@/domain/models'
+import { AddAccount } from '@/domain/usecases'
+import { AddAccountSpy } from '@/domain/tests'
 
 type SutParams = {
   validationError: string
@@ -22,7 +23,7 @@ type SutParams = {
 
 type SutTypes = {
   addAccountSpy: AddAccountSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: AddAccount.Model) => void
 }
 const history = createMemoryHistory({ initialEntries: ['/signup'] })
 const makeSut = (params?: SutParams): SutTypes => {

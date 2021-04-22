@@ -1,19 +1,14 @@
-import { SurveyModel } from '@/domain/models'
 import faker from 'faker'
 import { LoadSurveyList } from '../usecases/load-survey-list'
 
-export const mockSurveyModel = (): SurveyModel => ({
+export const mockSurveyModel = (): LoadSurveyList.Model => ({
   id: faker.datatype.uuid(),
   question: faker.random.word(),
-  answers: [{
-    image: faker.image.imageUrl(),
-    answer: faker.random.word()
-  }],
   date: faker.date.recent(),
   didAnswer: true
 })
 
-export const mockSurveyListModel = (): SurveyModel[] => ([
+export const mockSurveyListModel = (): LoadSurveyList.Model[] => ([
   mockSurveyModel(),
   mockSurveyModel(),
   mockSurveyModel()
@@ -22,7 +17,7 @@ export const mockSurveyListModel = (): SurveyModel[] => ([
 export class LoadSurveyListSpy implements LoadSurveyList {
   callsCount = 0
   surveys = mockSurveyListModel()
-  async loadAll (): Promise<SurveyModel[]> {
+  async loadAll (): Promise<LoadSurveyList.Model[]> {
     this.callsCount++
     return this.surveys
   }
