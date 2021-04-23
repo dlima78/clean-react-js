@@ -7,7 +7,7 @@ import * as S from './styled'
 
 const Header: React.FC = () => {
   const history = useHistory()
-  const { setCurrentAccount } = useContext(ApiContext)
+  const { setCurrentAccount, getCurrentAccount } = useContext(ApiContext)
 
   const logout = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
     event.preventDefault()
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
       <S.HeaderContent>
         <Logo logoWidth='60px'/>
         <S.LogoutWrap>
-          <S.UserName>Eduardo</S.UserName>
+          <S.UserName role='username' >{ getCurrentAccount().name }</S.UserName>
           <S.LogoutLink href='#' onClick={logout} >Sair</S.LogoutLink>
         </S.LogoutWrap>
       </S.HeaderContent>
