@@ -3,20 +3,24 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Header } from '@/presentation/components'
 import { ApiContext } from '@/presentation/contexts'
-import { Authentication } from '@/domain/usecases'
 import { createMemoryHistory, MemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
+import { mockAccountModel } from '@/domain/tests'
+import { AccountModel } from '@/domain/models'
 
 type SutTypes = {
-  setCurrentAccountMock: (account: Authentication.Model) => void
+  setCurrentAccountMock: (account: AccountModel) => void
   history: MemoryHistory
 }
 
-const makeSut = (): SutTypes => {
+const makeSut = (account = mockAccountModel()): SutTypes => {
   const history = createMemoryHistory({ initialEntries: ['/'] })
   const setCurrentAccountMock = jest.fn()
   render(
-    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock }}>
+    <ApiContext.Provider value={{
+      setCurrentAccount: setCurrentAccountMock,
+      getCurrentAccount: () => account
+    }}>
       <Router history={history}>
         <Header />
       </Router>
@@ -34,5 +38,11 @@ describe('Header Component', () => {
     userEvent.click(screen.getByRole('link', { name: /Sair/i }))
     expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined)
     expect(history.location.pathname).toBe('/login')
+  })
+
+  test('Shoud render username correctly', () => {
+    const account = mockAccountModel()
+    makeSut(account)
+    expect(screen.getByRole('username')).toHaveTextContent(account.name)
   })
 })
