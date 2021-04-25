@@ -18,4 +18,15 @@ describe('SurveyList', () => {
     cy.visit('')
     cy.url().should('eq', `${baseUrl}/login`)
   })
+  it('Should present correct username', () => {
+    cy.intercept('GET', '/surveys', {
+      statusCode: 500,
+      response: {
+        error: faker.random.words()
+      }
+    }).as('request')
+    cy.visit('')
+    const { name } = JSON.parse(localStorage.getItem('account'))
+    cy.getByTestId('username').should('contain.text', name)
+  })
 })
