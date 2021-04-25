@@ -1,18 +1,17 @@
 import React, { memo, useContext } from 'react'
-import { useHistory } from 'react-router'
 
 import { ApiContext } from '@/presentation/contexts'
 import { Logo } from '@/presentation/components'
 import * as S from './styled'
+import { useLogout } from '@/presentation/components/hooks'
 
 const Header: React.FC = () => {
-  const history = useHistory()
-  const { setCurrentAccount, getCurrentAccount } = useContext(ApiContext)
+  const logout = useLogout()
+  const { getCurrentAccount } = useContext(ApiContext)
 
-  const logout = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
+  const buttonClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
     event.preventDefault()
-    setCurrentAccount(undefined)
-    history.replace('/login')
+    logout()
   }
 
   return (
@@ -21,7 +20,7 @@ const Header: React.FC = () => {
         <Logo logoWidth='60px'/>
         <S.LogoutWrap>
           <S.UserName role='username' >{ getCurrentAccount().name }</S.UserName>
-          <S.LogoutLink href='#' onClick={logout} >Sair</S.LogoutLink>
+          <S.LogoutLink href='#' onClick={buttonClick} >Sair</S.LogoutLink>
         </S.LogoutWrap>
       </S.HeaderContent>
     </S.HeaderWrap>
