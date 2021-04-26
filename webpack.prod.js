@@ -25,7 +25,8 @@ module.exports = merge(common, {
       'process.env.APÌ_URL': JSON.stringify('https://fordevs.horkuapp.com/api')
     }),
     new HtmlWebpackPlugin({
-      template: 'template.prod.html'
+      template: 'template.prod.html',
+      favicon: './public/favicon.ico'
     })
   ]
 })

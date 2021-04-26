@@ -19,6 +19,7 @@ module.exports = merge(common, {
     writeToDisk: true,
     historyApiFallback: true
   },
+  devtool: 'inline-source-map',
   plugins: [
     new DefinePlugin({
       'process.env.APÌ_URL': JSON.stringify('http://localhost:5050/api')
