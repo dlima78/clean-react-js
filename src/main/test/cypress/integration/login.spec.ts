@@ -72,6 +72,7 @@ describe('Login', () => {
     cy.getByTestId('email').type('dlima78@gmail.com')
     cy.getByTestId('password').type('123456')
     cy.get('button[type=submit]').dblclick()
+    cy.wait('@request')
     cy.get('@request.all').should('have.length', 1)
   })
 })

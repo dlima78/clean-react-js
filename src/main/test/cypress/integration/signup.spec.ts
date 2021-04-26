@@ -87,6 +87,7 @@ describe('Signup', () => {
     cy.getByTestId('password').type(password)
     cy.getByTestId('passwordConfirmation').type(password)
     cy.get('button[type=submit]').dblclick()
+    cy.wait('@request')
     cy.get('@request.all').should('have.length', 1)
   })
 })
