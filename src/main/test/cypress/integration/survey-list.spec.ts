@@ -30,13 +30,4 @@ describe('SurveyList', () => {
     const { name } = JSON.parse(localStorage.getItem('account'))
     cy.getByTestId('username').should('contain.text', name)
   })
-
-  it('Should present correct survey-items', () => {
-    cy.intercept('GET', '/surveys', {
-      statusCode: 200,
-      response: 'fx:survey-list'
-    }).as('request')
-    cy.visit('')
-    cy.get('li:empty').should('have.length', 4)
-  })
 })
