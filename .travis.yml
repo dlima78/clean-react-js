@@ -11,10 +11,7 @@ cache:
 script:
   - eslint 'src/**'
   - npm run test:coveralls
-<<<<<<< HEAD
   - npm run test:cypress:ci
-=======
->>>>>>> 4ab539ef85f3b1be98cd5e1abfb8b2bdd332cc56
 deploy:
   provider: horoku
   api_key: REACTAPI
