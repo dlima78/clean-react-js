@@ -12,9 +12,9 @@ script:
   - eslint 'src/**'
   - npm run test:coveralls
 deploy:
-  provider: horoku
-  api_key: 
-    secure: REACTAPI
+  provider: heroku
+  api_key:
+    secure: "$REACT_API"
   app: fordev-react-app
   skip_cleanup: true
 notifications:
