@@ -22,7 +22,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new DefinePlugin({
-      'process.env.APÌ_URL': JSON.stringify('https://fordevs.horkuapp.com/api')
+      'process.env.APÌ_URL': JSON.stringify('https://fordevs.herukoapp.com/api')
     }),
     new HtmlWebpackPlugin({
       template: 'template.prod.html',
