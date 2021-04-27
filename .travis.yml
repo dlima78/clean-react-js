@@ -13,7 +13,8 @@ script:
   - npm run test:coveralls
 deploy:
   provider: horoku
-  api_key: REACTAPI
+  api_key: 
+    secure: REACTAPI
   app: fordev-react-app
   skip_cleanup: true
 notifications:
