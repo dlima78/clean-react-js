@@ -10,8 +10,11 @@ export class RemoteLoadSurveyResult implements LoadSurveyResult {
 
   async load (): Promise<LoadSurveyResult.Model> {
     const httpResponse = await this.httpGetClient.get({ url: this.url })
+    const remoteSurveyResult = httpResponse.body
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok: return
+      case HttpStatusCode.ok: return Object.assign(
+        {}, remoteSurveyResult,
+        { date: new Date(remoteSurveyResult.date) })
       case HttpStatusCode.forbidden: throw new AccessDeniedError()
       default: throw new UnexpectedError()
     }
@@ -21,13 +24,13 @@ export class RemoteLoadSurveyResult implements LoadSurveyResult {
 export namespace RemoteLoadSurveyResult {
   export type Model = {
     question: string
-    answers: [{
-      image: string
+    answers: Array<{
+      image?: string
       answer: string
       count: number
       percent: number
       isCurrentAccountanswer: boolean
-    }]
-    date: Date
+    }>
+    date: string
   }
 }
