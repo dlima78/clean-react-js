@@ -11,9 +11,9 @@ export class RemoteLoadSurveyResult implements LoadSurveyResult {
   async load (): Promise<LoadSurveyResult.Model> {
     const httpResponse = await this.httpGetClient.get({ url: this.url })
     switch (httpResponse.statusCode) {
+      case HttpStatusCode.ok: return
       case HttpStatusCode.forbidden: throw new AccessDeniedError()
-      case HttpStatusCode.notFound: throw new UnexpectedError()
-      default: return null
+      default: throw new UnexpectedError()
     }
   }
 }
