@@ -1,4 +1,4 @@
-import { Header, Footer, Spinner } from '@/presentation/components'
+import { Header, Footer, Loading } from '@/presentation/components'
 import * as S from './styled'
 
 import React from 'react'
@@ -35,12 +35,7 @@ const SurveyResult: React.FC = () => {
           </FlipMove>
         </S.ResultList>
         <S.Button>Voltar</S.Button>
-        <S.LoadingWrap>
-          <S.Loading>
-            <S.LoadingText>Aguarde...</S.LoadingText>
-            <Spinner bgWhite/>
-          </S.Loading>
-        </S.LoadingWrap>
+        { false && <Loading /> }
       </S.ContentWrap>
       <Footer />
     </S.SurveyResultWrap>
