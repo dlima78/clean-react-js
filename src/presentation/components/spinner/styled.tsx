@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 
-export const Ellipsis = styled.div`
+type Props = {
+  bgWhite: boolean
+}
+
+export const Ellipsis = styled.div.attrs((props: Props) => ({
+  bgWhite: props.bgWhite
+}))<Props>`
   display: inline-block;
   position: relative;
   width: 80px;
@@ -12,7 +18,7 @@ export const Ellipsis = styled.div`
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: var(--primaryLight);
+    background: ${props => props.bgWhite ? 'var(--white)' : 'var(--primaryLight)'};
     opacity: 0.8;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 
