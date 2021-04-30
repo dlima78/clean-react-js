@@ -25,9 +25,14 @@ export const Question = styled.h2`
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 20px;
+  margin-left: 16px;
   text-transform: uppercase;
 `
-
+export const HGroup = styled.hgroup`
+  align-items: center;
+  display: flex;
+  margin-bottom: 16px;
+`
 export const ResultList = styled.ul`
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import { Header, Footer, Loading } from '@/presentation/components'
+import { Header, Footer, Loading, Calendar } from '@/presentation/components'
 import * as S from './styled'
 
 import React from 'react'
@@ -9,7 +9,10 @@ const SurveyResult: React.FC = () => {
     <S.SurveyResultWrap>
       <Header />
       <S.ContentWrap>
-        <S.Question>Qual é o seu framework web favorito?</S.Question>
+        <S.HGroup>
+          <Calendar date={new Date()} />
+          <S.Question>Qual é o seu framework web favorito Qual é o seu framework web favorito?</S.Question>
+        </S.HGroup>
         <S.ResultList>
           <FlipMove>
           <S.ResultItem>

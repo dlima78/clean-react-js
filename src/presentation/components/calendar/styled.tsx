@@ -20,7 +20,7 @@ export const CalendarWrap = styled.time.attrs((props: Props) => ({
   flex-shrink: 0;
   height: 100px;
   justify-content: center;
-  margin-left: ${props => `${props.marginLeft}px` || '0px'};
+  margin-left: ${props => props.marginLeft ? `${props.marginLeft}px` : '0px'};
   width: 100px;
 `
 
