@@ -11,7 +11,7 @@ const SurveyResult: React.FC = () => {
       <S.ContentWrap>
         <S.HGroup>
           <Calendar date={new Date()} />
-          <S.Question>Qual é o seu framework web favorito Qual é o seu framework web favorito?</S.Question>
+          <S.Question>Qual é o seu framework web favorito?</S.Question>
         </S.HGroup>
         <S.ResultList>
           <FlipMove>
@@ -38,7 +38,7 @@ const SurveyResult: React.FC = () => {
           </FlipMove>
         </S.ResultList>
         <S.Button>Voltar</S.Button>
-        { false && <Loading /> }
+        <Loading />
       </S.ContentWrap>
       <Footer />
     </S.SurveyResultWrap>

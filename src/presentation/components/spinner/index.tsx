@@ -5,9 +5,9 @@ type Props = React.HTMLAttributes<HTMLElement> & {
   bgWhite?: boolean
 }
 
-const Spinner: React.FC<Props> = (props: Props) => {
+const Spinner: React.FC<Props> = ({ bgWhite, ...props }: Props) => {
   return (
-    <Ellipsis bgWhite={ props.bgWhite } {...props}>
+    <Ellipsis bgWhite {...props}>
       <div/><div/><div/><div/>
     </Ellipsis>
   )
