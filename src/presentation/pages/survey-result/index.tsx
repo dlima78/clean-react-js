@@ -9,36 +9,34 @@ const SurveyResult: React.FC = () => {
     <S.SurveyResultWrap>
       <Header />
       <S.ContentWrap>
-        <S.HGroup>
-          <Calendar date={new Date()} />
-          <S.Question>Qual é o seu framework web favorito?</S.Question>
-        </S.HGroup>
-        <S.ResultList>
-          <FlipMove>
-          <S.ResultItem>
-            <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
-            <S.Answer>ReactJs</S.Answer>
-            <S.Percent>50%</S.Percent>
-          </S.ResultItem>
-          <S.ResultItem>
-            <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
-            <S.Answer>ReactJs</S.Answer>
-            <S.Percent>50%</S.Percent>
-          </S.ResultItem>
-          <S.ResultItem active>
-            <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
-            <S.Answer>ReactJs</S.Answer>
-            <S.Percent>50%</S.Percent>
-          </S.ResultItem>
-          <S.ResultItem>
-            <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
-            <S.Answer>ReactJs</S.Answer>
-            <S.Percent>50%</S.Percent>
-          </S.ResultItem>
-          </FlipMove>
-        </S.ResultList>
-        <S.Button>Voltar</S.Button>
-        <Loading />
+        { true &&
+          <>
+            <S.HGroup>
+            <Calendar date={new Date()} />
+            <S.Question>Qual é o seu framework web favorito Qual é o seu framework web favorito Qual é o seu framework web favorito?</S.Question>
+            </S.HGroup><S.ResultList>
+                <FlipMove>
+                  <S.ResultItem>
+                    <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
+                    <S.Answer>ReactJs</S.Answer>
+                    <S.Percent>50%</S.Percent>
+                  </S.ResultItem>
+                  <S.ResultItem>
+                    <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
+                    <S.Answer>ReactJs</S.Answer>
+                    <S.Percent>50%</S.Percent>
+                  </S.ResultItem>
+                  <S.ResultItem active>
+                    <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
+                    <S.Answer>ReactJs</S.Answer>
+                    <S.Percent>50%</S.Percent>
+                  </S.ResultItem>
+                </FlipMove>
+              </S.ResultList>
+              <S.Button>Voltar</S.Button>
+            </>
+        }
+        { false && <Loading /> }
       </S.ContentWrap>
       <Footer />
     </S.SurveyResultWrap>

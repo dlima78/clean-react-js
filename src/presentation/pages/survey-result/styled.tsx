@@ -1,4 +1,10 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const shimmer = keyframes`
+  100% {
+    transform: translateX(100%)
+  }
+`
 
 type Props = {
   active: boolean
@@ -18,15 +24,104 @@ export const ContentWrap = styled.div`
   max-width: 800px;
   padding: 40px;
   width: 100%;
+
+  /* &:empty { */
+    background-repeat: no-repeat;
+    background-image: 
+      linear-gradient(to right, #ccc, #ccc),
+      linear-gradient(to right, #ccc, #ccc),
+      linear-gradient(to right, #ccc, #ccc),
+      linear-gradient(to right, #ccc, #ccc),
+      linear-gradient(to right, #ccc, #ccc),
+      linear-gradient(to right, #ccc, #ccc),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position: 
+      40px 40px,
+      156px 45px,
+      156px 70px,
+      156px 95px,
+      40px 172px,
+      40px 270px,
+      40px 368px;
+    background-size:
+      100px 100px,
+      40% 20px,
+      75% 20px,
+      60% 20px,
+      90% 82px,
+      90% 82px,
+      90% 82px;
+    position: relative;
+    overflow: hidden;
+
+      &::after {
+          content: '';
+          animation: ${shimmer} 1.2s infinite;
+          background-image: linear-gradient(to right, transparent, rgba(255,255,255, 0.2), transparent);
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          transform: translateX(-100%);
+        }
+        
+    @media only screen and (max-width: 620px) {
+      background-repeat: no-repeat;
+      background-image: 
+        linear-gradient(to right, #ccc, #ccc),
+        linear-gradient(to right, #ccc, #ccc),
+        linear-gradient(to right, #ccc, #ccc),
+        linear-gradient(to right, #ccc, #ccc),
+        linear-gradient(to right, #ccc, #ccc),
+        linear-gradient(to right, #ccc, #ccc),
+        linear-gradient(to right, #ccc, #ccc);
+      background-position: 
+        40px 40px,
+        156px 45px,
+        156px 70px,
+        156px 95px,
+        40px 224px,
+        40px 312px,
+        40px 400px;
+      background-size:
+        100px 100px,
+        40% 20px,
+        75% 20px,
+        60% 20px,
+        78% 76px,
+        78% 76px,
+        78% 76px;
+      position: relative;
+      overflow: hidden;
+
+        &::after {
+            content: '';
+            animation: ${shimmer} 1.2s infinite;
+            background-image: linear-gradient(to right, transparent, rgba(255,255,255, 0.2), transparent);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+          }
+      }
+  /* } */
 `
 
 export const Question = styled.h2`
   color: var(--primaryDark);
   font-size: 20px;
   font-weight: bold;
+  line-height: 1.2;
   margin-bottom: 20px;
   margin-left: 16px;
   text-transform: uppercase;
+
+  @media only screen and (max-width: 620px) {
+    font-size: 16px;
+  }
 `
 export const HGroup = styled.hgroup`
   align-items: center;
@@ -58,16 +153,30 @@ export const ResultItem = styled.li.attrs((props: Props) => ({
 export const Img = styled.img`
   height: 50px;
   width: 50px;
+  margin-right: 16px;
+
+  @media only screen and (max-width: 620px) {
+    height: 40px;
+    width: 40px;
+  }  
 `
 
 export const Answer = styled.span`
-  margin: 0px 16px;
+  margin-right: 16px;
   flex-grow: 1;
   font-size: 20px;
+
+  @media only screen and (max-width: 620px) {
+    font-size: 16px;
+  }
 `
 
 export const Percent = styled.span`
   font-size: 30px;
+
+  @media only screen and (max-width: 620px) {
+    font-size: 20px;
+  }
 `
 
 export const Button = styled.button`
