@@ -5,7 +5,7 @@ import * as S from './styled'
 
 const Loading: React.FC = () => {
   return (
-    <S.LoadingWrap data-testid='loading' >
+    <S.LoadingWrap role='loading' >
       <S.LoadingComponent>
         <S.LoadingText>Aguarde...</S.LoadingText>
         <Spinner bgWhite/>
