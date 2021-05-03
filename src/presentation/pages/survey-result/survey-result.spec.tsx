@@ -1,4 +1,4 @@
-import { render, RenderResult, screen } from '@testing-library/react'
+import { render, RenderResult, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 
 import { SurveyResult } from '@/presentation/pages'
@@ -17,9 +17,12 @@ const makeSut = (): RenderResult => {
 }
 
 describe('SurveyResult Component', () => {
-  test('Should present correct initial state', () => {
+  test('Should present correct initial state', async () => {
     makeSut()
     const surveyResult = screen.getByRole('survey-result')
     expect(surveyResult.childElementCount).toBe(0)
+    expect(screen.queryByRole('error')).not.toBeInTheDocument()
+    expect(screen.queryByRole('loading')).not.toBeInTheDocument()
+    await waitFor(() => surveyResult)
   })
 })
