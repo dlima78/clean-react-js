@@ -25,7 +25,7 @@ export const ContentWrap = styled.div`
   padding: 40px;
   width: 100%;
 
-  /* &:empty { */
+  &:empty {
     background-repeat: no-repeat;
     background-image: 
       linear-gradient(to right, #ccc, #ccc),
@@ -107,7 +107,7 @@ export const ContentWrap = styled.div`
             transform: translateX(-100%);
           }
       }
-  /* } */
+  }
 `
 
 export const Question = styled.h2`
