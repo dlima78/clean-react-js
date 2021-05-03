@@ -2,15 +2,23 @@ import { Header, Footer, Loading, Calendar, Error } from '@/presentation/compone
 import { LoadSurveyResult } from '@/domain/usecases'
 import * as S from './styled'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FlipMove from 'react-flip-move'
 
-const SurveyResult: React.FC = () => {
+type Props = {
+  loadSurveyResult: LoadSurveyResult
+}
+
+const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
   const [state] = useState({
     isLoading: false,
     error: '',
     surveyResult: null as LoadSurveyResult.Model
   })
+
+  useEffect(() => {
+    loadSurveyResult.load()
+  }, [])
   return (
     <S.SurveyResultWrap>
       <Header />
