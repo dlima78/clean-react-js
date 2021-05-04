@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import { Calendar } from '@/presentation/components'
+import { Link } from 'react-router-dom'
 
 export const SurveyItemWrap = styled.li`
   background: var(--white);
@@ -26,7 +27,7 @@ export const SurveyContent = styled.div`
 
 `
 
-export const Button = styled.div`
+export const LinkStyled = styled(Link)`
   background: #03a9f4;
   border-radius: 0px 0px 8px 8px;
   color: var(--white);

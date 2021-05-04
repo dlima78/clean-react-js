@@ -19,7 +19,7 @@ const SurveyItem: React.FC<Props> = ({ survey }: Props) => {
           date={survey.date} />
         <S.Title role='question'>{ survey.question }</S.Title>
       </S.SurveyContent>
-      <S.Button>Ver resultado</S.Button>
+      <S.LinkStyled role='link' to={`/surveys/${survey.id}`}>Ver resultado</S.LinkStyled>
     </S.SurveyItemWrap>
   )
 }
