@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from 'react'
+
 import { Footer, Header, Error } from '@/presentation/components'
-import { List } from '@/presentation/pages/survey-list/components'
 import { useErrorHandler } from '@/presentation/components/hooks'
 import { LoadSurveyList } from '@/domain/usecases/load-survey-list'
-
-import React, { useEffect, useState } from 'react'
+import { List } from '@/presentation/pages/survey-list/components'
 
 import * as S from './styled'
 

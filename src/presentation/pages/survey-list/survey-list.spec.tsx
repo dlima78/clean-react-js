@@ -1,13 +1,13 @@
-import React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { createMemoryHistory, MemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
+import React from 'react'
 
-import { SurveyList } from '@/presentation/pages'
 import { LoadSurveyListSpy, mockAccountModel } from '@/domain/tests'
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
-import { ApiContext } from '@/presentation/contexts'
-import { Router } from 'react-router'
 import { AccountModel } from '@/domain/models'
+import { ApiContext } from '@/presentation/contexts'
+import { SurveyList } from '@/presentation/pages'
 
 type SutTypes = {
   loadSurveyListSpy: LoadSurveyListSpy
