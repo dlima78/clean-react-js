@@ -1,13 +1,26 @@
 import { mockSurveyModel } from '@/domain/tests'
 import { IconName } from '@/presentation/components'
 import { SurveyItem } from '@/presentation/pages/survey-list/components'
-import { render, RenderResult, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import { createMemoryHistory, MemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
 import React from 'react'
+import userEvent from '@testing-library/user-event'
 
-const makeSut = (survey = mockSurveyModel()): RenderResult => {
-  return render(
-    <SurveyItem survey={survey} />
+type SutTypes = {
+  history: MemoryHistory
+}
+
+const makeSut = (survey = mockSurveyModel()): SutTypes => {
+  const history = createMemoryHistory({ initialEntries: ['/'] })
+  render(
+    <Router history={history}>
+      <SurveyItem survey={survey} />
+    </Router>
   )
+  return {
+    history
+  }
 }
 
 describe('Name of the group', () => {
@@ -37,5 +50,12 @@ describe('Name of the group', () => {
     expect(screen.getByRole('day')).toHaveTextContent('03')
     expect(screen.getByRole('month')).toHaveTextContent('jun')
     expect(screen.getByRole('year')).toHaveTextContent('2019')
+  })
+
+  test('Should go to SurveyResult', () => {
+    const survey = mockSurveyModel()
+    const { history } = makeSut(survey)
+    userEvent.click(screen.getByRole('link'))
+    expect(history.location.pathname).toBe(`/surveys/${survey.id}`)
   })
 })
