@@ -10,7 +10,7 @@ type Props = {
 }
 
 const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
-  const [state] = useState({
+  const [state, setState] = useState({
     isLoading: false,
     error: '',
     surveyResult: null as LoadSurveyResult.Model
@@ -18,6 +18,8 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
 
   useEffect(() => {
     loadSurveyResult.load()
+      .then(surveyResult => setState(old => ({ ...old, surveyResult })))
+      .catch()
   }, [])
   return (
     <S.SurveyResultWrap>
@@ -26,27 +28,20 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
         { state.surveyResult &&
           <>
             <S.HGroup>
-            <Calendar date={new Date()} />
-            <S.Question>Qual é o seu framework web favorito Qual é o seu framework web favorito Qual é o seu framework web favorito?</S.Question>
-            </S.HGroup><S.ResultList>
-                <FlipMove>
-                  <S.ResultItem>
-                    <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
-                    <S.Answer>ReactJs</S.Answer>
-                    <S.Percent>50%</S.Percent>
+              <Calendar date={ state.surveyResult.date } />
+              <S.Question role='question'>{ state.surveyResult.question } </S.Question>
+            </S.HGroup>
+            <S.ResultList >
+              <FlipMove data-testid='answers'>
+                { state.surveyResult.answers.map(answer => (
+                  <S.ResultItem active={!!answer.isCurrentAccountanswer} role='answer-wrap' key={answer.answer}>
+                    { answer.image && <S.Img role='image' src={answer.image} alt={answer.answer} /> }
+                    <S.Answer role='answer' >{ answer.answer }</S.Answer>
+                    <S.Percent role='percent' >{ answer.percent}%</S.Percent>
                   </S.ResultItem>
-                  <S.ResultItem>
-                    <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
-                    <S.Answer>ReactJs</S.Answer>
-                    <S.Percent>50%</S.Percent>
-                  </S.ResultItem>
-                  <S.ResultItem active>
-                    <S.Img src='http://fordevs.herokuapp.com/static/img/logo-react.png' />
-                    <S.Answer>ReactJs</S.Answer>
-                    <S.Percent>50%</S.Percent>
-                  </S.ResultItem>
-                </FlipMove>
-              </S.ResultList>
+                ))}
+              </FlipMove>
+            </S.ResultList>
               <S.Button>Voltar</S.Button>
             </>
         }
