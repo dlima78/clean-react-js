@@ -1,5 +1,5 @@
 import { createMemoryHistory, MemoryHistory } from 'history'
-import { render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import React from 'react'
 
@@ -48,7 +48,7 @@ describe('SurveyResult Component', () => {
   test('Should call LoadSurveyResult', async () => {
     const { loadSurveyResultSpy } = makeSut()
     await waitFor(() => screen.getByRole('survey-result'))
-    expect(loadSurveyResultSpy.callscount).toBe(1)
+    expect(loadSurveyResultSpy.callsCount).toBe(1)
   })
 
   test('Should present SurveyResult data on success', async () => {
@@ -96,5 +96,16 @@ describe('SurveyResult Component', () => {
     await waitFor(() => screen.getByRole('survey-result'))
     expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined)
     expect(history.location.pathname).toBe('/login')
+  })
+
+  test('Should call LoadSurveyResult on reload', async () => {
+    const loadSurveyResultSpy = new LoadSurveyResultSpy()
+    jest.spyOn(loadSurveyResultSpy, 'load')
+      .mockRejectedValueOnce(new UnexpectedError())
+    makeSut(loadSurveyResultSpy)
+    await waitFor(() => screen.getByRole('survey-result'))
+    fireEvent.click(screen.getByRole('reload'))
+    expect(loadSurveyResultSpy.callsCount).toBe(1)
+    await waitFor(() => screen.getByRole('survey-result'))
   })
 })
