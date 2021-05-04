@@ -28,6 +28,7 @@ export const SurveyContent = styled.div`
 `
 
 export const LinkStyled = styled(Link)`
+  text-decoration: none;
   background: #03a9f4;
   border-radius: 0px 0px 8px 8px;
   color: var(--white);
