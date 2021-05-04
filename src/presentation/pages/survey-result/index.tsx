@@ -1,11 +1,11 @@
-import { Header, Footer, Loading, Calendar, Error } from '@/presentation/components'
+import { Header, Footer, Loading, Error } from '@/presentation/components'
 import { LoadSurveyResult } from '@/domain/usecases'
 import * as S from './styled'
 
 import React, { useEffect, useState } from 'react'
-import FlipMove from 'react-flip-move'
+
 import { useErrorHandler } from '@/presentation/components/hooks'
-import { useHistory } from 'react-router'
+import { SurveyResultData } from '@/presentation/pages/survey-result/components'
 
 type Props = {
   loadSurveyResult: LoadSurveyResult
@@ -32,32 +32,11 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult }: Props) => {
     isLoading: false, surveyResult: null, error: '', reload: !old.reload
   }))
 
-  const { goBack } = useHistory()
-
   return (
     <S.SurveyResultWrap>
       <Header />
       <S.ContentWrap role='survey-result' >
-        { state.surveyResult &&
-          <>
-            <S.HGroup>
-              <Calendar date={ state.surveyResult.date } />
-              <S.Question role='question'>{ state.surveyResult.question } </S.Question>
-            </S.HGroup>
-            <S.ResultList >
-              <FlipMove data-testid='answers'>
-                { state.surveyResult.answers.map(answer => (
-                  <S.ResultItem active={!!answer.isCurrentAccountanswer} role='answer-wrap' key={answer.answer}>
-                    { answer.image && <S.Img role='image' src={answer.image} alt={answer.answer} /> }
-                    <S.Answer role='answer' >{ answer.answer }</S.Answer>
-                    <S.Percent role='percent' >{ answer.percent}%</S.Percent>
-                  </S.ResultItem>
-                ))}
-              </FlipMove>
-            </S.ResultList>
-              <S.Button role='back-button' onClick={goBack} >Voltar</S.Button>
-            </>
-        }
+        { state.surveyResult && <SurveyResultData surveyResult={state.surveyResult} /> }
         { state.isLoading && <Loading /> }
         { state.error && <Error error={state.error} reload={reload} /> }
       </S.ContentWrap>
