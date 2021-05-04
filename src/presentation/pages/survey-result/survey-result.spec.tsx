@@ -4,14 +4,13 @@ import React from 'react'
 import { mockAccountModel, LoadSurveyResultSpy, mockSurveyResultModel } from '@/domain/tests'
 import { SurveyResult } from '@/presentation/pages'
 import { ApiContext } from '@/presentation/contexts'
+import { UnexpectedError } from '@/domain/errors'
 
 type SutTypes = {
   loadSurveyResultSpy: LoadSurveyResultSpy
 }
 
-const makeSut = (surveyResult = mockSurveyResultModel()): SutTypes => {
-  const loadSurveyResultSpy = new LoadSurveyResultSpy()
-  loadSurveyResultSpy.surveyResult = surveyResult
+const makeSut = (loadSurveyResultSpy = new LoadSurveyResultSpy()): SutTypes => {
   render(
     <ApiContext.Provider value={ {
       setCurrentAccount: jest.fn(),
@@ -42,11 +41,12 @@ describe('SurveyResult Component', () => {
   })
 
   test('Should present SurveyResult data on success', async () => {
+    const loadSurveyResultSpy = new LoadSurveyResultSpy()
     const surveyResult = Object.assign(mockSurveyResultModel(), {
       date: new Date('2021-01-10T00:00:00')
     })
-
-    makeSut(surveyResult)
+    loadSurveyResultSpy.surveyResult = surveyResult
+    makeSut(loadSurveyResultSpy)
     await waitFor(() => screen.getByRole('survey-result'))
     expect(screen.getByRole('day')).toHaveTextContent('10')
     expect(screen.getByRole('month')).toHaveTextContent('jan')
@@ -63,5 +63,17 @@ describe('SurveyResult Component', () => {
     const percents = screen.getAllByRole('percent')
     expect(percents[0]).toHaveTextContent(`${surveyResult.answers[0].percent}%`)
     expect(percents[1]).toHaveTextContent(`${surveyResult.answers[1].percent}%`)
+  })
+
+  test('Should render error on UnexpectedError', async () => {
+    const error = new UnexpectedError()
+    const loadSurveyListSpy = new LoadSurveyResultSpy()
+    jest.spyOn(loadSurveyListSpy, 'load')
+      .mockRejectedValueOnce(error)
+    makeSut(loadSurveyListSpy)
+    await waitFor(() => screen.getByRole('survey-result'))
+    expect(screen.queryByRole('question')).not.toBeInTheDocument()
+    expect(screen.queryByRole('loading')).not.toBeInTheDocument()
+    expect(screen.getByRole('error')).toHaveTextContent(error.message)
   })
 })
