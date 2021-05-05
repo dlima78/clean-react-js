@@ -1,14 +1,14 @@
 import faker from 'faker'
 
-import { RemoteSaveSurveyResult } from '@/data/usecases'
-import { HttpStatusCode } from '@/data/protocols/http'
 import { HttpClientSpy, mockRemoteSurveyResultModel } from '@/data/tests'
-import { RemoteLoadSurveyResult } from '../load-survey-result/remote-load-survey-result'
 import { mockSaveSurveyResultParams } from '@/domain/tests'
+import { RemoteSaveSurveyResult } from '@/data/usecases'
+import { AccessDeniedError } from '@/domain/errors'
+import { HttpStatusCode } from '@/data/protocols/http'
 
 type SutTypes = {
   sut: RemoteSaveSurveyResult
-  httpClientSpy: HttpClientSpy<RemoteLoadSurveyResult.Model>
+  httpClientSpy: HttpClientSpy<RemoteSaveSurveyResult.Model>
 }
 
 const makeSut = (url = faker.internet.url()): SutTypes => {
@@ -33,5 +33,14 @@ describe('RemoteSaveSurveyResult', () => {
     expect(httpClientSpy.url).toBe(url)
     expect(httpClientSpy.method).toBe('put')
     expect(httpClientSpy.body).toEqual(saveSurveyResultParams)
+  })
+
+  test('Should throw AccessDeniedError if HttpClient returns 403', async () => {
+    const { sut, httpClientSpy } = makeSut()
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.forbidden
+    }
+    const promise = sut.save(mockSaveSurveyResultParams())
+    await expect(promise).rejects.toThrow(new AccessDeniedError())
   })
 })
