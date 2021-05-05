@@ -1,5 +1,5 @@
 import { createMemoryHistory, MemoryHistory } from 'history'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 import React from 'react'
 
@@ -8,6 +8,7 @@ import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 import { SurveyResult } from '@/presentation/pages'
 import { AccountModel } from '@/domain/models'
 import { ApiContext } from '@/presentation/contexts'
+import userEvent from '@testing-library/user-event'
 
 type SutTypes = {
   loadSurveyResultSpy: LoadSurveyResultSpy
@@ -63,7 +64,6 @@ describe('SurveyResult Component', () => {
     expect(screen.getByRole('month')).toHaveTextContent('jan')
     expect(screen.getByRole('year')).toHaveTextContent('2021')
     expect(screen.getByRole('question')).toHaveTextContent(surveyResult.question)
-    expect(screen.getByTestId('answers').childElementCount).toBe(2)
     const images = screen.getAllByRole('image')
     expect(images[0]).toHaveAttribute('src', surveyResult.answers[0].image)
     expect(images[0]).toHaveAttribute('alt', surveyResult.answers[0].answer)
@@ -104,7 +104,7 @@ describe('SurveyResult Component', () => {
       .mockRejectedValueOnce(new UnexpectedError())
     makeSut(loadSurveyResultSpy)
     await waitFor(() => screen.getByRole('survey-result'))
-    fireEvent.click(screen.getByRole('reload'))
+    userEvent.click(screen.getByRole('reload'))
     expect(loadSurveyResultSpy.callsCount).toBe(1)
     await waitFor(() => screen.getByRole('survey-result'))
   })
@@ -112,7 +112,15 @@ describe('SurveyResult Component', () => {
   test('Should goto SurveyList on back button click', async () => {
     const { history } = makeSut()
     await waitFor(() => screen.getByRole('survey-result'))
-    fireEvent.click(screen.getByRole('back-button'))
+    userEvent.click(screen.getByRole('back-button'))
     expect(history.location.pathname).toBe('/')
+  })
+
+  test('Should not present loading on active answer click', async () => {
+    makeSut()
+    await waitFor(() => screen.getByRole('survey-result'))
+    const answersWrap = screen.getAllByRole('answer-wrap')
+    userEvent.click(answersWrap[0])
+    expect(screen.queryByRole('loading')).not.toBeInTheDocument()
   })
 })
