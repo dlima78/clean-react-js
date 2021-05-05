@@ -1,14 +1,9 @@
+import { SurveyResultAnswerModel } from '@/domain/models'
 import React from 'react'
 import * as S from './styled'
 
 type Props = {
-  answer: {
-    image?: string
-    answer: string
-    count: number
-    percent: number
-    isCurrentAccountanswer: boolean
-  }
+  answer: SurveyResultAnswerModel
 }
 
 const Answer: React.FC<Props> = ({ answer }: Props) => {
