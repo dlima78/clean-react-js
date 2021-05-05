@@ -1,3 +1,4 @@
+export * from './save-survey-result/remote-save-survey-result'
 export * from './load-survey-result/remote-load-survey-result'
 export * from './load-survey-list/remote-load-survey-list'
 export * from './authentication/remote-authentication'

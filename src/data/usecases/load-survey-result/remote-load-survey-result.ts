@@ -1,3 +1,4 @@
+import { RemoteSurveyResultModel } from '@/data/models'
 import { HttpClient, HttpStatusCode } from '@/data/protocols/http'
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 import { LoadSurveyResult } from '@/domain/usecases'
@@ -5,7 +6,7 @@ import { LoadSurveyResult } from '@/domain/usecases'
 export class RemoteLoadSurveyResult implements LoadSurveyResult {
   constructor (
     private readonly url: string,
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient<RemoteLoadSurveyResult.Model>
   ) {}
 
   async load (): Promise<LoadSurveyResult.Model> {
@@ -22,15 +23,5 @@ export class RemoteLoadSurveyResult implements LoadSurveyResult {
 }
 
 export namespace RemoteLoadSurveyResult {
-  export type Model = {
-    question: string
-    answers: Array<{
-      image?: string
-      answer: string
-      count: number
-      percent: number
-      isCurrentAccountanswer: boolean
-    }>
-    date: string
-  }
+  export type Model = RemoteSurveyResultModel
 }

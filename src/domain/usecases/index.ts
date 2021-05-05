@@ -1,3 +1,4 @@
+export * from './save-survey-result'
 export * from './load-survey-result'
 export * from './load-survey-list'
 export * from './authentication'
