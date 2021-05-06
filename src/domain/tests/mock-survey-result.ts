@@ -31,3 +31,12 @@ export class LoadSurveyResultSpy implements LoadSurveyResult {
 export const mockSaveSurveyResultParams = (): SaveSurveyResult.Params => ({
   answer: faker.random.words()
 })
+
+export class SaveSurveyResultSpy implements SaveSurveyResult {
+  params: SaveSurveyResult.Params
+  surveyResult = mockSurveyResultModel()
+  async save (params: SaveSurveyResult.Params): Promise<SaveSurveyResult.Model> {
+    this.params = params
+    return this.surveyResult
+  }
+}
