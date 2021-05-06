@@ -155,4 +155,17 @@ describe('SurveyResult Component', () => {
     expect(screen.queryByRole('loading')).not.toBeInTheDocument()
     expect(screen.getByRole('error')).toHaveTextContent(error.message)
   })
+
+  test('Should logout on AccessDeniedError', async () => {
+    const saveSurveyResultSpy = new SaveSurveyResultSpy()
+    jest.spyOn(saveSurveyResultSpy, 'save')
+      .mockRejectedValueOnce(new AccessDeniedError())
+    const { setCurrentAccountMock, history } = makeSut({ saveSurveyResultSpy })
+    await waitFor(() => screen.getByRole('survey-result'))
+    const answersWrap = screen.queryAllByRole('answer-wrap')
+    userEvent.click(answersWrap[1])
+    await waitFor(() => screen.getByRole('survey-result'))
+    expect(setCurrentAccountMock).toHaveBeenCalledWith(undefined)
+    expect(history.location.pathname).toBe('/login')
+  })
 })
