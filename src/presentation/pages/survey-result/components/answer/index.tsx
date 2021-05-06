@@ -18,7 +18,7 @@ const Answer: React.FC<Props> = ({ answer }: Props) => {
   }
   return (
     <S.ResultItem
-      active={!!answer.isCurrentAccountanswer}
+      active={answer.isCurrentAccountanswer}
       role='answer-wrap'
       onClick={answerClick}
     >
