@@ -17,6 +17,7 @@ const Input: React.FC<Props> = (props: Props) => {
         role={props.name}
         name={props.name}
         type={props.type}
+        autoComplete='off'
         placeholder={props.placeholder}
         onChange={e => setState({ ...state, [e.currentTarget.name]: e.currentTarget.value })}
       />
