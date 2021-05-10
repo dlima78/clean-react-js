@@ -13,3 +13,8 @@ script:
   - npm run test:coveralls
 notifications:
   email: false
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API
+  app: fordev-react-app
+  skip_cleanup: true
