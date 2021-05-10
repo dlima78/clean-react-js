@@ -9,5 +9,5 @@ export type RemoteSurveyResultAnswerModel = {
   answer: string
   count: number
   percent: number
-  isCurrentAccountanswer: boolean
+  isCurrentAccountAnswer: boolean
 }

@@ -9,5 +9,5 @@ export type SurveyResultAnswerModel = {
   answer: string
   count: number
   percent: number
-  isCurrentAccountanswer: boolean
+  isCurrentAccountAnswer: boolean
 }

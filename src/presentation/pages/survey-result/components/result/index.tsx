@@ -1,6 +1,6 @@
 import React from 'react'
 import FlipMove from 'react-flip-move'
-import { useHistory } from 'react-router'
+import { useHistory } from 'react-router-dom'
 
 import { LoadSurveyResult } from '@/domain/usecases'
 import { Calendar } from '@/presentation/components'
@@ -16,13 +16,13 @@ const Result: React.FC<Props> = ({ surveyResult }: Props) => {
   return (
     <>
       <S.HGroup>
-        <Calendar date={ surveyResult.date } />
-        <S.Question role='question'>{ surveyResult.question } </S.Question>
+        <Calendar date={surveyResult.date} />
+        <S.Question role='question'>{surveyResult.question} </S.Question>
       </S.HGroup>
       <S.ResultList >
         <FlipMove data-testid='answers'>
           <>
-            { surveyResult.answers.map(answer => <Answer key={answer.answer} answer={answer} />) }
+            {surveyResult.answers.map(answer => <Answer key={answer.answer} answer={answer} />)}
           </>
         </FlipMove>
       </S.ResultList>

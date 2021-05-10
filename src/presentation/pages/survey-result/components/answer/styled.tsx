@@ -1,12 +1,6 @@
 import styled from 'styled-components'
 
-type Props = {
-  active: boolean
-}
-
-export const ResultItem = styled.li.attrs((props: Props) => ({
-  active: props.active
-}))<Props>`
+export const ResultItem = styled.li`
   align-items: center;
   background: var(--white);
   border-radius: 8px;
@@ -17,7 +11,9 @@ export const ResultItem = styled.li.attrs((props: Props) => ({
   margin-top: 16px;
   padding: 16px;
 
-  border: ${props => props.active ? '2px solid #006064' : 'none'}; 
+  &.active {
+    border: 2px solid #006064;
+  }
 `
 
 export const Img = styled.img`
