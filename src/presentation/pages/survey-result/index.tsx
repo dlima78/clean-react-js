@@ -30,6 +30,9 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: P
   }, [state.reload])
 
   const onAnswer = (answer: string): void => {
+    if (state.isLoading) {
+      return
+    }
     setState(old => ({ ...old, isLoading: true }))
     saveSurveyResult.save({ answer })
       .then(surveyResult => setState(old => ({ ...old, isLoading: false, surveyResult })))
@@ -44,9 +47,9 @@ const SurveyResult: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: P
       <Header />
       <SurveyResultContext.Provider value={{ onAnswer }}>
         <S.ContentWrap role='survey-result' >
-          { state.surveyResult && <SurveyResultData surveyResult={state.surveyResult} /> }
-          { state.isLoading && <Loading /> }
-          { state.error && <Error error={state.error} reload={reload} /> }
+          {state.surveyResult && <SurveyResultData surveyResult={state.surveyResult} />}
+          {state.isLoading && <Loading />}
+          {state.error && <Error error={state.error} reload={reload} />}
         </S.ContentWrap>
       </SurveyResultContext.Provider>
       <Footer />
