@@ -29,14 +29,14 @@ const makeSut = ({
   const setCurrentAccountMock = jest.fn()
   const history = createMemoryHistory({ initialEntries: ['/', '/surveys/any_id'], initialIndex: 1 })
   render(
-    <ApiContext.Provider value={ {
+    <ApiContext.Provider value={{
       setCurrentAccount: setCurrentAccountMock,
       getCurrentAccount: () => mockAccountModel()
     }}>
       <Router history={history} >
         <SurveyResult
-          loadSurveyResult={ loadSurveyResultSpy }
-          saveSurveyResult={ saveSurveyResultSpy }
+          loadSurveyResult={loadSurveyResultSpy}
+          saveSurveyResult={saveSurveyResultSpy}
         />]
       </Router>
     </ApiContext.Provider>
@@ -77,6 +77,10 @@ describe('SurveyResult Component', () => {
     expect(screen.getByRole('month')).toHaveTextContent('jan')
     expect(screen.getByRole('year')).toHaveTextContent('2021')
     expect(screen.getByRole('question')).toHaveTextContent(surveyResult.question)
+    expect(screen.getByTestId('answers').childElementCount).toBe(2)
+    const answersWap = screen.queryAllByRole('answer-wrap')
+    expect(answersWap[0]).toHaveClass('active')
+    expect(answersWap[1]).not.toHaveClass('active')
     const images = screen.getAllByRole('image')
     expect(images[0]).toHaveAttribute('src', surveyResult.answers[0].image)
     expect(images[0]).toHaveAttribute('alt', surveyResult.answers[0].answer)
@@ -195,5 +199,15 @@ describe('SurveyResult Component', () => {
     expect(percents[0]).toHaveTextContent(`${surveyResult.answers[0].percent}%`)
     expect(percents[1]).toHaveTextContent(`${surveyResult.answers[1].percent}%`)
     expect(screen.queryByRole('loading')).not.toBeInTheDocument()
+  })
+
+  test('Should prevent multiple answer click', async () => {
+    const { saveSurveyResultSpy } = makeSut()
+    await waitFor(() => screen.getByRole('survey-result'))
+    const answerWrap = screen.queryAllByRole('answer-wrap')
+    userEvent.click(answerWrap[1])
+    userEvent.click(answerWrap[1])
+    await waitFor(() => screen.getByRole('survey-result'))
+    expect(saveSurveyResultSpy.callsCount).toBe(1)
   })
 })
